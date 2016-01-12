@@ -69,6 +69,7 @@
  			<dwr:include method="loadStudent"/>
  			<dwr:include method="loadByUserId"/>
  			<dwr:include method="findStudent"/>
+ 			<dwr:include method="findByString"/>
  		</dwr:remote>
  	</bean>
  	<bean id="collegeService" class="org.zyh.iclass.service.CollegeService">

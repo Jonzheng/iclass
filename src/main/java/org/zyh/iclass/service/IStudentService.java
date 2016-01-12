@@ -12,5 +12,5 @@ public interface IStudentService {
 	public Student loadByUserId(int id);
 	public Pager<Student> findStudent(int curPage,int pageSize);
 	public Pager<Student> findStudent(int curPage,int pageSize,String sort,String order);
-	
+	public Pager<Student> findByString(String string,int curPage,int pageSize);
 }

@@ -45,18 +45,52 @@
 		
 		//---------jquery-class-myClass----------------------
 		$("#class-member").on("click",function(){
-			studentService.findStudent(1,14,function(pager){
-				var stus = pager.datas;
+			studentService.findStudent(1,15,function(pager){
 				$.studentTable(pager);
 				$.createPager(pager,"#list-class-member-pager",{callback:function(){
 					var curPage = $("#list-class-member-pager").data("curPage");
-					studentService.findStudent(curPage,14,function(pager){
+					studentService.findStudent(curPage,15,function(pager){
 						$.studentTable(pager);
 					})
 					}
 				})
 			})
 		})
+		//成员搜索
+		$("#class-members-search").on("focusin",function(){
+			$(this).select();
+			$(this).animate({width:182},300);
+		})
+		$("#class-members-search").on("focusout",function(){
+			$(this).animate({width:92},300);
+		})
+		$("#class-members-search").on("keyup",function(){
+			var str = $("#class-members-search").val().trim();
+			studentService.findByString(str,1,15,function(pager){
+				$.studentTable(pager);
+				$.createPager(pager,"#list-class-member-pager",{callback:function(){
+					var curPage = $("#list-class-member-pager").data("curPage");
+					studentService.findByString(str,curPage,15,function(pager){
+						$.studentTable(pager);
+					})
+					}
+				})
+			})
+		})
+/* 		$("#class-members-page-size").on("change",function(e){
+			var size = parseInt($("#class-members-page-size").find("option:selected").text());
+			studentService.findStudent(1,size,function(pager){
+				var stus = pager.datas;
+				$.stuTable(pager);
+				$.createPager(pager,"#list-class-member-pager",{callback:function(){
+					var curPage = $("#list-class-member-pager").data("curPage");
+					studentService.findStudent(curPage,size,function(pager){
+						$.studentTable(pager);
+					})
+				}
+				})
+			})
+		}) */
     })
 	</script>
 <title>Home</title>
@@ -473,31 +507,28 @@
 					  	<div id="member-box" class="member-box">
 					  	<!-- 班级成员 -->
 					  	  <div class="table-title">
-							<div class="title-label">显示</div>
+<!-- 							<div class="title-label">显示</div>
 								<div class="body-select">
-								<select id="page-size" class='form-control input-sm'>
-									<option>15</option>
-									<option>25</option>
-									<option>30</option>
-									<option>50</option>
-									<option>100</option>
+								<select id="class-members-page-size" class='form-control input-sm'>
+									<option id='15'>15</option>
+									<option id='50'>50</option>
+									<option id='100'>100</option>
 								</select>
-								</div>
-							<div class="title-label">项结果 </div>
-							<div class="search-contain">
+							</div>
+							<div class="title-label">项结果 </div>  -->
+							<div class="">
 								<div class="title-label">搜索：</div>
-					  			<div class="body-search"><input id='search' type='text' class='form-control input-sm'></div>
+					  			<div class="body-search"><input id='class-members-search' type='text' class='form-control input-sm'></div>
 							</div>
 						  </div><!-- table-title -->
 						   <table id="t-class-members" class="table table-bordered table-condensed">
 				              <thead>
-				              <tr><td>学号</td><td>姓名</td><td>长号</td><td>短号</td><td>QQ</td><td>宿舍</td></tr>
+				              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>长号</td><td>短号</td><td>QQ</td><td>宿舍</td></tr>
 				              </thead>
 				              <tbody>
 							  <tr><td><button id="delete-btn" class="btn btn-danger btn-opera">删除</button></td></tr>
 				              </tbody>
 				              <tfoot>
-				              <tr><td>学号</td><td>姓名</td><td>长号</td><td>短号</td><td>QQ</td><td>宿舍</td></tr>
 				              <tr><td colspan="7">
 				               <div class='class-member-pager-container'>
 				                 <ul id="list-class-member-pager" class="page"></ul>

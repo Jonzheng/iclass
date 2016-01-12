@@ -38,4 +38,11 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 		String hql = "from Student";
 		return this.find(hql);
 	}
+
+	@Override
+	public Pager<Student> findByString(String string) {
+		String str = "%"+string+"%";
+		String hql = "from Student where studentId like ? or name like ? or mobile like ? or doorplate like ? or qqNum like ? or shortMobile like ?";
+		return this.find(hql, new Object[]{str,str,str,str,str,str});
+	}
 }

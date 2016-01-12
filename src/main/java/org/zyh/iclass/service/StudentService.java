@@ -61,4 +61,9 @@ public class StudentService implements IStudentService {
 		this.setFour(curPage, pageSize, sort, order);
 		return studentDao.findStudent();
 	}
+	@Override
+	public Pager<Student> findByString(String string, int curPage, int pageSize) {
+		this.setPP(curPage, pageSize);
+		return studentDao.findByString(string);
+	}
 }

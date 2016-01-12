@@ -146,6 +146,9 @@
 		$("#classroom-find").on("click",function(e){
 			doSearch();
 		})
+		$("#search-input").on("focusin",function(e){
+			$(this).select();
+		})
 	}
 	$.listClassroom = function(pager) {
 		var cs = pager.datas;

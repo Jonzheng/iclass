@@ -11,4 +11,5 @@ public interface IStudentDao {
 	public Student loadStudent(int id);
 	public Student loadByUserId(int id);
 	public Pager<Student> findStudent();
+	public Pager<Student> findByString(String string);
 }

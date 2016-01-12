@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.directwebremoting.org/schema/spring-dwr
+    	http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+	
+	<mvc:annotation-driven/>
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<context:component-scan base-package="org.zyh.iclass.controller"/>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	  <property value="true" name="alwaysUseFullPath"></property> 
+	  <property name="mappings">
+	    <props> 
+	      <prop key="/dwr/**/*">dwrController</prop>
+	    </props>
+	 </property> 
+	</bean>
+	
+	<dwr:controller id="dwrController" debug="false"/>
+	<dwr:configuration>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.User"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.Pager"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.SystemContext"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.College"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.Department"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.Major"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.ApplyCdm"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.AjaxObj"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.UserDTO"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.Classroom"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.Student"></dwr:convert>
+	</dwr:configuration>
+	
+	<!-- Service公开给DWR的方法 -->
+ 	<bean id="classroomService" class="org.zyh.iclass.service.ClassroomService">
+ 		<dwr:remote javascript="classroomService">
+ 			<dwr:include method="findClassroom"/>
+ 			<dwr:include method="addClassroom"/>
+ 			<dwr:include method="findByCollege"/>
+ 			<dwr:include method="findByCD"/>
+ 			<dwr:include method="findByCDM"/>
+ 			<dwr:include method="findByString"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	<bean id="userService" class="org.zyh.iclass.service.UserService">
+ 		<dwr:remote javascript="userService">
+ 			<dwr:include method="findUser"/>
+ 			<dwr:include method="add"/>
+ 			<dwr:include method="updateUser"/>
+ 			<dwr:include method="updatePassword"/>
+ 			<dwr:include method="register"/>
+ 			<dwr:include method="loadByEmail"/>
+ 			<dwr:include method="loadByUsername"/>
+ 			<dwr:include method="login"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	<bean id="studentService" class="org.zyh.iclass.service.StudentService">
+ 		<dwr:remote javascript="studentService">
+ 			<dwr:include method="addStudent"/>
+ 			<dwr:include method="updateStudent"/>
+ 			<dwr:include method="deleteStudent"/>
+ 			<dwr:include method="loadStudent"/>
+ 			<dwr:include method="loadByUserId"/>
+ 			<dwr:include method="findStudent"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	<bean id="collegeService" class="org.zyh.iclass.service.CollegeService">
+ 		<dwr:remote javascript="collegeService">
+ 			<dwr:include method="addCdm"/>
+ 			<dwr:include method="deleteCdm"/>
+ 			<dwr:include method="updateCdm"/>
+ 			
+ 			<dwr:include method="loadCollege"/>
+ 			<dwr:include method="listCollege"/>
+ 			<dwr:include method="listDepartmentByCid"/>
+ 			<dwr:include method="listMajorByDid"/>
+ 			<dwr:include method="findCollege"/>
+ 			
+ 			<dwr:include method="addApplyCdm"/>
+ 			<dwr:include method="deleteApplyCdm"/>
+ 			<dwr:include method="updateApplyCdm"/>
+ 			<dwr:include method="findApplyCdm"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.zyh.iclass.model.CmsException">error</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="50000000"></property>
+	</bean>
+	
+</beans>

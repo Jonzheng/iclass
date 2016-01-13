@@ -198,6 +198,18 @@
 			$("#update-pwd").hide();
 			$("#logout").hide();
 		});
+		//班级信息
+ 		$("#info-class-box").on("mouseenter",function(){
+			$("#person-class-edit").show(100);
+		})
+		$("#info-class-box").on("mouseleave",function(){
+			$("#person-class-edit").hide();
+		});
+ 		$("#person-class-edit").on("click",function(){
+ 			//TODO
+ 			console.log("person-class-edit be clicked!")
+ 			$("#class-info-modal").modal("show");
+ 		})
 		//-----
  		$("#info-contact").on("mouseenter",function(){
 			$("#person-contact-edit").show(100);

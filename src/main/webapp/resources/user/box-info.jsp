@@ -126,7 +126,7 @@
 	      <div id="qq-err"class="edit-err">请正确输入QQ号码</div>
 	      <div id="wechat-err"class="edit-err">请正确输入微信账号</div>
 	      
-		<div id="info-class-edit" class="info-class">
+		<div id="info-class-edit" class="info-class-edit">
 			<div id="class-pic" class="class-pic" style="background-image: url('../collegeIco/1hzu-1.png')"></div>
 			<div class="class-desc">
 			<h4 class="text-primary">
@@ -252,24 +252,35 @@
 				<i id="person-class-edit" class="glyphicon glyphicon-edit person-contact-edit"></i>
 			</div>
 			<h3>我的班级</h3>
-				<div id="info-class" class="info-class">
-					<div id="class-pic" class="class-pic" style="background-image: url('../collegeIco/1hzu-1.png')"></div>
-					<div class="class-desc">
-					<h4 class="text-primary">
-					<small class="text-primary">
-					<span id="l-grade">2012级</span>
-					<span>—</span>
-					</small>
-					<span id="l-cna">软件工程2班</span>
-					</h4>
-					<p class="text-muted">
-					班主任:
-					<span id="l-teacher">吕布</span>
-					  班长:
-					<span id="l-monitor">貂蝉</span>
-					</p>
-					</div>
+			<div id="info-class" class="info-class">
+				<div id="class-pic" class="class-pic" style="background-image: url('../collegeIco/1hzu-1.png')"></div>
+				<div class="class-desc">
+				<h4 class="text-primary">
+				<small class="text-primary">
+				<span id="l-grade">2012级</span>
+				<span>—</span>
+				</small>
+				<span id="l-cna">软件工程2班</span>
+				</h4>
+				<p class="text-muted">
+				班主任:
+				<span id="l-teacher">吕布</span>
+				  班长:
+				<span id="l-monitor">貂蝉</span>
+				</p>
 				</div>
+			</div>
+			<div id="" class="mod-student">
+				<h3 class="h33">个人信息</h3>
+				<ul id="c-info-content">
+					<li>学号：<span id="s-info-id" title="1214080611236">1214080611236</span></li>
+					<li>姓名：<span id="s-info-name" title="郑宇航">郑宇航</span></li>
+					<li>宿舍：<span id="s-info-doorplate" title="16#C705">16#C705</span></li>
+					<li>手机：<span id="s-info-mobile" title="112233445566">112233445566</span></li>
+					<li>短号：<span id="s-info-short" title="665544">665544</span></li>
+					<li>QQ：<span id="s-info-qq" title="99887766">99887766</span></li>
+				</ul>
+			</div>
 		</div>
 		<div id="info-course-box"class="tags info-class-box">
 			<h3>我的课程</h3>

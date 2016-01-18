@@ -11,7 +11,7 @@
 	        <h4 class="modal-title">编辑信息</h4>
 	      </div>
 	      <div id="nickname-err"class="edit-err">用户名长度不能超过14个字符</div>
-	      <div id="name-err"class="edit-err">实名长度不能超过14个字符</div>
+	      <div id="name-err"class="edit-err">验证君表示不允许你叫这个名字0.0</div>
 	      <div id="birthday-err"class="edit-err">生日格式不正确</div>
 	      <div id="sign-err"class="edit-err">简介长度不能超过180个字符</div>
 	      
@@ -25,7 +25,7 @@
 				<input id="edit-nickname" type="text" placeholder="随时可以更改" class="info-input input-sm">
 			</div>
 			<div class="edit-input-container">
-				<span id="">实名：</span>
+				<span id="">姓名：</span>
 				<input id="edit-name" type="text" placeholder="仅在班级显示" class="info-input input-sm">
 			</div>
 			<div class="edit-input-container">
@@ -121,10 +121,12 @@
 	        <h4 class="modal-title">班级信息</h4>
 	      </div>
 	      
-	      <div id="email-err"class="edit-err">请输入正确的邮箱格式</div>
-	      <div id="mobile-err"class="edit-err">请正确输入手机号码</div>
-	      <div id="qq-err"class="edit-err">请正确输入QQ号码</div>
-	      <div id="wechat-err"class="edit-err">请正确输入微信账号</div>
+	      <div id="s-id-err"class="edit-err">别逗了,学号怎么可能这么长0.0</div>
+	      <div id="s-name-err"class="edit-err">叫你爸爸帮你改个名字吧...</div>
+	      <div id="s-mobile-err"class="edit-err">有这么长的手机号码?orz</div>
+	      <div id="s-short-err"class="edit-err">短号?</div>
+	      <div id="s-qq-err"class="edit-err">腾讯是你家开的吗?</div>
+	      <div id="s-doorplate-err"class="edit-err">字数不允许</div>
 	      
 		<div id="info-class-edit" class="info-class-edit">
 			<div id="class-pic" class="class-pic" style="background-image: url('../collegeIco/1hzu-1.png')"></div>
@@ -140,11 +142,13 @@
 			班主任:
 			<span id="l-teacher">吕布</span>
 			  班长:
-			<span id="l-monitor">貂蝉</span>
+			<span id="l-monitor">貂蝉他爹</span>
 			</p>
 			</div>
 			<div class="btn-div">
-			   <a class="class-btn" href="#">退出班级</a>
+			   <a id="s-class-confirm" class="class-btn none" href="#">确认退出</a>
+			   <a id="s-class-cancel" class="class-btn none" href="#">取消</a>
+			   <a id="s-class-exit" class="class-btn none" href="#">退出班级</a>
 			</div>
 		</div>
 	      <div id="class-info-edit" class="modal-body">   <!-- body -->

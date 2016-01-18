@@ -1,5 +1,7 @@
 package org.zyh.iclass.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -65,5 +67,9 @@ public class StudentService implements IStudentService {
 	public Pager<Student> findByString(String string, int curPage, int pageSize) {
 		this.setPP(curPage, pageSize);
 		return studentDao.findByString(string);
+	}
+	@Override
+	public List<Student> listStudent() {
+		return studentDao.listStudent();
 	}
 }

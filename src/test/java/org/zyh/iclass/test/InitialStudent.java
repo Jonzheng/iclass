@@ -1,5 +1,11 @@
 package org.zyh.iclass.test;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.hibernate.FlushMode;
@@ -13,9 +19,11 @@ import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+import org.zyh.iclass.model.Classroom;
 import org.zyh.iclass.model.Pager;
 import org.zyh.iclass.model.Student;
 import org.zyh.iclass.service.IStudentService;
+import org.zyh.iclass.util.ExportExcelUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/beans.xml")
@@ -56,7 +64,14 @@ public class InitialStudent {
 			stuService.addStudent(stu);
 		}
 	}
-	
+	@Test
+	public void exportExcel() throws FileNotFoundException {
+		String title = "2012软件工程";
+		OutputStream out = new FileOutputStream("D://student.xls");
+		List<Student> stus = new ArrayList<>();
+		stus = stuService.listStudent();
+		ExportExcelUtil.exportExcel(title, stus, out);
+	}
 	@Test
 	public void findStudent() {
 		Pager<Student> stus = stuService.findStudent(0, 15, "id", "desc");

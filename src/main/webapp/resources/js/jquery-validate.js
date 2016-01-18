@@ -221,13 +221,13 @@
 				return true;
 			}
 		}
-		nameErr = function(str){
+		nameErr = function(str,$box){
 			if(str.length>14) {
-				$("#name-err").show();
+				$($box).show();
 				return false;
 			}
 			else {
-				$("#name-err").hide();
+				$($box).hide();
 				return true;
 			}
 		}
@@ -242,52 +242,88 @@
 			}
 		}
 		isInfo = function(nickname,name,sign,birthday){
-			if(nicknameErr(nickname)&&nameErr(name)&&signErr(sign)&&isBirthday(birthday)) return true;
+			if(nicknameErr(nickname)&&nameErr(name,"#name-err")&&signErr(sign)&&isBirthday(birthday)) return true;
 		}
 	    //contact--err
-		emailErr = function(str){
+		emailErr = function(str,$box){
 			if(str=="") return true;
   	     	var reg = /^\w{3,}@\w+(\.\w+)+$/;
   	     	if(!reg.test(str)){
-  	     		$("#email-err").show();
+  	     		$($box).show();
   	     		return false;
   	    	 } else {
-  	    		$("#email-err").hide();
+  	    		$($box).hide();
   	    		return true;
   	    	 }
 		}
-		mobileErr = function(str){
+		mobileErr = function(str,$box){
 			if(str=="") return true;
     		var reg = /^(\+\d{2,3}\-)?\d{11}$/;   
  	        if(!reg.test(str)){
- 	        	$("#mobile-err").show();
+ 	        	$($box).show();
  	        	return false;
  	        }else{
- 	        	$("#mobile-err").hide();
+ 	        	$($box).hide();
  	        	return true;
  	        }
 		}
-		qqErr = function(str){
+		qqErr = function(str,$box){
 			if(str=="") return true;
 			if(str.length<2||str.length>12) {
-				$("#qq-err").show();
+				$($box).show();
 				return false;
 			}else {
-				$("#qq-err").hide();
+				$($box).hide();
 				return true;
 			}
 		}
-		weChatErr = function(str){
+		weChatErr = function(str,$box){
 			if(str=="") return true;
 			if(str.length<2||str.length>17) {
-				$("#wechat-err").show();
+				$($box).show();
 				return false;
 			}else {
-				$("#wechat-err").hide();
+				$($box).hide();
 				return true;
 			}
 		}
+		// 学生信息验证
+		idErr = function(str,$box){
+			if(str=="") return true;
+			if(str.length<2||str.length>17) {
+				$($box).show();
+				return false;
+			}else {
+				$($box).hide();
+				return true;
+			}
+		}
+		shortErr = function(str,$box){
+			if(str.length>11) {
+				$($box).show();
+				return false;
+			}
+			else {
+				$($box).hide();
+				return true
+			}
+		}
+		doorplateErr = function(str,$box){
+			if(str.length>16) {
+				$($box).show();
+				return false;
+			}
+			else {
+				$($box).hide();
+				return true
+			}
+		}
+		isStudent = function(id,name,mobile,short,qq,doorplate){
+			if(idErr(id,"#s-id-err")&&nameErr(name,"#s-name-err")&&mobileErr(mobile,"#s-mobile-err")
+					&&shortErr(short,"#-short-err")&&qqErr(qq,"#s-qq-err")
+					&&doorplateErr(doorplate,"#s-doorpolate-err")) return true;
+		}
 		isContact = function(email,mobile,qq,wechat){
-			if(emailErr(email)&&mobileErr(mobile)&&qqErr(qq)&&weChatErr(wechat)) return true;
+			if(emailErr(email,"#email-err")&&mobileErr(mobile,"#mobile-err")&&qqErr(qq,"#qq-err")&&weChatErr(wechat,"#wechat-err")) return true;
 		}
 })(jQuery);

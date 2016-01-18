@@ -64,7 +64,11 @@
 						 </table>
 					  	</div>
 					  </div>
-					  <div class="tab-pane" id="syllabus">syllabus-table</div>
+					  <div class="tab-pane" id="syllabus">
+						  <div id="syllabus-box" class="member-box">
+						  
+						  </div>
+					  </div>
 					  <div class="tab-pane" id="mission">mission-table</div>
 					  <div class="tab-pane" id="file">file-table</div>
 				  </div>

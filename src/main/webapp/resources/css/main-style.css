@@ -290,7 +290,7 @@ div.border-b {
 #l-teacher {
 	display:-moz-inline-box;
 	display:inline-block;
-	width:145px; 
+	width:120px; 
 }
 .btn-div {
 	margin-top:25px;
@@ -863,6 +863,9 @@ a:link, a:visited, a:hover, a:focus {
     float: left;
     font-size: 24px;
     font-weight: normal;
+}
+.td-filling {
+	color:#aaa;
 }
 
 .person-sign {

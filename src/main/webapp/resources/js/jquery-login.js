@@ -210,7 +210,6 @@
 		});
  		$("#person-class-edit").on("click",function(){
  			//TODO
- 			console.log("person-class-edit be clicked!")
  			//初始化
 			var id = $("#s-info-id").html();
  			var name = $("#s-info-name").html();
@@ -225,14 +224,35 @@
 			else $("#student-name").val("");
 			if(mobile!="未填写手机") $("#student-mobile").val(mobile);
 			else $("#student-mobile").val("");
-			if(id!="未填写短号") $("#student-short").val(short);
+			if(short!="未填写短号") $("#student-short").val(short);
 			else $("#student-short").val("");
 			if(qq!="未填写QQ") $("#student-qq").val(qq);
 			else $("#student-qq").val("");
 			if(doorplate!="未填写宿舍") $("#student-doorplate").val(doorplate);
 			else $("#student-doorplate").val("");
 			
+ 			$("#s-class-confirm").hide();
+ 			$("#s-class-cancel").hide();
+			$("#s-class-exit").show();
  			$("#class-info-modal").modal("show");
+ 		})
+ 		$("#s-class-exit").on("click",function(event){
+ 			event.preventDefault();
+ 			$(this).hide();
+ 			$("#s-class-confirm").show();
+ 			$("#s-class-cancel").show();
+ 		})
+ 		$("#s-class-cancel").on("click",function(event){
+ 			event.preventDefault();
+ 			$(this).hide();
+ 			$("#s-class-confirm").hide();
+ 			$("#s-class-exit").show();
+ 		})
+ 		$("#s-class-confirm").on("click",function(event){
+ 			event.preventDefault();
+ 			//TODO 确认退出后
+ 			$(this).hide();
+ 			$("#s-class-cancel").hide();
  		})
 		//-----
  		$("#info-contact").on("mouseenter",function(){
@@ -515,9 +535,9 @@
 					stu.qqNum = qq;
 					stu.doorplate = doorplate;
 					
-					studnetService.updateStudent(stu,function(){
+					studentService.updateStudent(stu,function(){
 						initStudent(stu);
-						$("#student-modal").modal("hide");
+						$("#class-info-modal").modal("hide");
 					})
 				})
 			}
@@ -628,7 +648,7 @@
 		if(stu.sign!=null) $("#info-sign").html(stu.sign);
 	}
 	initStudent = function(stu){
-		if(stu.id!="") {
+		if(stu.studentId!="") {
 			//显示bug不能直接对s-info-email操作样式
 			$("#s-info-id").html(stu.studentId).closest("li").css("color",'');
 		} else {

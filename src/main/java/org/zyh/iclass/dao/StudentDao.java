@@ -1,5 +1,7 @@
 package org.zyh.iclass.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.zyh.iclass.model.Pager;
 import org.zyh.iclass.model.Student;
@@ -44,5 +46,11 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 		String str = "%"+string+"%";
 		String hql = "from Student where studentId like ? or name like ? or mobile like ? or doorplate like ? or qqNum like ? or shortMobile like ?";
 		return this.find(hql, new Object[]{str,str,str,str,str,str});
+	}
+
+	@Override
+	public List<Student> listStudent() {
+		String hql = "from Student";
+		return this.list(hql);
 	}
 }

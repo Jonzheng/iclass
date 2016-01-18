@@ -29,7 +29,7 @@
 		if(us.length<pager.size);
 		var ex = pager.size-us.length;
 		for(var i=0;i<ex;i++) {
-			$("#t-class-members").find("tbody").append("<tr><td class='no-td filling'>#</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+			$("#t-class-members").find("tbody").append("<tr><td class='td-filling'>#</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 		}
 		//更改表格样式
 		$("#t-class-members").find("tbody").find("tr:odd").addClass("info").end().find("tr:even").addClass("warning");

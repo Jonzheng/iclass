@@ -23,12 +23,53 @@
 				  <li><a href="#inform" data-toggle="tab">通知公告</a></li>
 				  <li><a id="class-member" href="#member" data-toggle="tab">成员</a></li>
 				  <li><a href="#syllabus" data-toggle="tab">班级课程表</a></li>
-				  <li><a href="#mission" data-toggle="tab">作业任务</a></li>
+				<!--   <li><a href="#mission" data-toggle="tab">作业任务</a></li> -->
 				  <li><a href="#file" data-toggle="tab">共享文件</a></li>
 				</ul>
 				<!-- Tab panes -->
 				  <div class="tab-content">
-					  <div class="tab-pane active" id="inform">inform-table</div>
+					  <div class="tab-pane active" id="inform">
+
+						<div class="panel-group" id="accordion">
+						  <div class="panel panel-default">
+						    <div class="panel-heading">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">2012-4-14--通知1</a>
+						      </h4>
+						    </div>
+						    <div id="collapseOne" class="panel-collapse collapse in">
+						      <div class="panel-body">
+						      <p class="text-danger">举行升旗仪式</p>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="panel panel-default">
+						    <div class="panel-heading">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2012-4-12--通知2</a>
+						      </h4>
+						    </div>
+						    <div id="collapseTwo" class="panel-collapse collapse">
+						      <div class="panel-body">
+						      <p class="text-danger">今天不用做广播体操</p>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="panel panel-default">
+						    <div class="panel-heading">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse"data-toggle="collapse" data-parent="#accordion" href="#collapseThree">2012-4-10--通知3</a>
+						      </h4>
+						    </div>
+						    <div id="collapseThree" class="panel-collapse collapse">
+						      <div class="panel-body">
+						      <p class="text-danger">晚上1.2节物理考试</p>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						
+					  </div>
 					  <div class="tab-pane" id="member">
 					  	<div id="member-box" class="member-box">
 					  	<!-- 班级成员 -->
@@ -45,6 +86,7 @@
 							<div class="">
 								<div class="title-label">搜索：</div>
 					  			<div class="body-search"><input id='class-members-search' type='text' class='form-control input-sm'></div>
+					  			<div class="title-label pull-right"><a id="stu-excle" class='add-btn' href='../../stuExcel'>导出Excel</a></div>
 							</div>
 						  </div><!-- table-title -->
 						   <table id="t-class-members" class="table table-bordered table-condensed">
@@ -52,7 +94,7 @@
 				              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>长号</td><td>短号</td><td>QQ</td><td>宿舍</td></tr>
 				              </thead>
 				              <tbody>
-							  <tr><td><button id="delete-btn" class="btn btn-danger btn-opera">删除</button></td></tr>
+							  <!-- <tr><td><button id="delete-btn" class="btn btn-danger btn-opera">删除</button></td></tr> -->
 				              </tbody>
 				              <tfoot>
 				              <tr><td colspan="7">
@@ -66,10 +108,59 @@
 					  </div>
 					  <div class="tab-pane" id="syllabus">
 						  <div id="syllabus-box" class="member-box">
-						  
+						  <div class="syllabus-box">
+						    <div class="day">
+						    	<div class="day-head">#</div><div class="day-am">上午</div><div class="day-c">1</div><div class="day-c">2</div><div class="day-c">3</div><div class="day-c">4</div>
+						    	<div class="course-m"></div>
+						    	<div class="day-am">下午</div><div class="day-c">5</div><div class="day-c">6</div><div class="day-c">7</div><div class="day-c">8</div>
+						    	<div class="course-m"></div>
+						    </div>
+							<div class="day"><div class="day-head">周一</div>
+								<div class="course-b"><span id="course-name">jQuery实战D得到的的大阿福</span><br><span class="text-info">李黑</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-m"></div>
+								<div class="course-b"><span id="course-name">jQuery实战</span><br><span class="text-info">李黑</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-b"><span id="course-name">高等数学</span><br><span class="text-info">李白</span><br><span class="text-danger">5-303</span></div>
+								<div class="course-m"></div>
+							</div>
+							<div class="day"><div class="day-head">周二</div>
+								<div class="course-b"><span id="course-name">高等数学</span><br><span class="text-info">高斯</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-m"></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-b"><span id="course-name">大学物理</span><br><span class="text-info">牛顿</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-m"></div>
+							</div>
+							<div class="day"><div class="day-head">周三</div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-b"><span id="course-name">数据结构</span><br><span class="text-info">成龙</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-m"></div>
+								<div class="course-b"><span id="course-name">大学英语</span><br><span class="text-info">Jon Snow</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-m"></div>
+							</div>
+							<div class="day"><div class="day-head">周四</div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-b"><span id="course-name">编译原理</span><br><span class="text-info">台湾佬</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-m"></div>
+								<div class="course-c"></div>
+								<div class="course-b"><span id="course-name">C语言</span><br><span class="text-info">刘邦</span><br><span class="text-danger">5-302</span></div>
+								<div class="course-c"></div>
+								<div class="course-m"></div>
+							</div>
+							<div class="day"><div class="day-head">周五</div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-m"></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-c"></div><div class="course-c"></div>
+								<div class="course-m"></div>
+							</div>
+							
+						  </div>
 						  </div>
 					  </div>
-					  <div class="tab-pane" id="mission">mission-table</div>
+					  <!-- <div class="tab-pane" id="mission">mission-table</div> -->
 					  <div class="tab-pane" id="file">file-table</div>
 				  </div>
 			</div>

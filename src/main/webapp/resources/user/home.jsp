@@ -77,6 +77,7 @@
 				})
 			})
 		})
+		
 /* 		$("#class-members-page-size").on("change",function(e){
 			var size = parseInt($("#class-members-page-size").find("option:selected").text());
 			studentService.findStudent(1,size,function(pager){

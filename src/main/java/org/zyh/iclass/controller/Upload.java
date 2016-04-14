@@ -1,9 +1,18 @@
 package org.zyh.iclass.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -12,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.util.SystemOutLogger;
 import org.directwebremoting.json.JsonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +29,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.zyh.iclass.model.AjaxObj;
 import org.zyh.iclass.model.College;
+import org.zyh.iclass.model.Student;
 import org.zyh.iclass.model.SystemContext;
 import org.zyh.iclass.model.User;
 import org.zyh.iclass.model.UserDTO;
 import org.zyh.iclass.service.ICollegeService;
+import org.zyh.iclass.service.IStudentService;
 import org.zyh.iclass.service.IUserService;
+import org.zyh.iclass.util.ExportExcelUtil;
 import org.zyh.iclass.util.MailUtil;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -35,6 +48,8 @@ public class Upload {
 	
 	@Inject
 	private IUserService userService;
+	@Inject
+	private IStudentService stuService;
 
 
 	@Inject
@@ -118,6 +133,46 @@ public class Upload {
 			f.delete();
 		}
 		Filedata.transferTo(f);
+	}
+	
+	@RequestMapping("/stuExcel")
+	public void stuExcel(String title, HttpServletResponse resp) {
+		try {
+			//String title = "2012软件工程";
+			title = "class_";
+			String realPath = SystemContext.getRealPath();
+			String path = realPath+"upload/"+title+System.currentTimeMillis()+".xls";
+			
+			OutputStream out = new FileOutputStream(path);
+			List<Student> stus = new ArrayList<>();
+			stus = stuService.listStudent();
+			ExportExcelUtil.exportExcel(title, stus, out);
+			
+			File file = new File(path);
+			// 取得文件名。
+			String filename = file.getName();
+			// 以流的形式下载文件。
+			InputStream fis = new BufferedInputStream(new FileInputStream(path));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			// 清空response
+			resp.reset();
+			// 设置response的Header
+			resp.addHeader("Content-Disposition", "attachment;filename="
+					+ new String(filename.getBytes()));
+			resp.addHeader("Content-Length", "" + file.length());
+			OutputStream toClient = new BufferedOutputStream(
+					resp.getOutputStream());
+			resp.setContentType("application/vnd.ms-excel;charset=utf-8");
+			toClient.write(buffer);
+			toClient.flush();
+			toClient.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping("/uploadCollege")

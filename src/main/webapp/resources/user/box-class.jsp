@@ -22,7 +22,7 @@
 				<ul class="nav nav-tabs">
 				  <li><a href="#inform" data-toggle="tab">通知公告</a></li>
 				  <li><a id="class-member" href="#member" data-toggle="tab">成员</a></li>
-				  <li><a href="#syllabus" data-toggle="tab">班级课程表</a></li>
+				  <li><a id="class-syllabus" href="#syllabus" data-toggle="tab">班级课程表</a></li>
 				<!--   <li><a href="#mission" data-toggle="tab">作业任务</a></li> -->
 				  <li><a href="#file" data-toggle="tab">共享文件</a></li>
 				</ul>
@@ -109,51 +109,110 @@
 					  <div class="tab-pane" id="syllabus">
 						  <div id="syllabus-box" class="member-box">
 						  <div class="syllabus-box">
-						    <div class="day">
+						    <div class="day-z">
 						    	<div class="day-head">#</div><div class="day-am">上午</div><div class="day-c">1</div><div class="day-c">2</div><div class="day-c">3</div><div class="day-c">4</div>
 						    	<div class="course-m"></div>
 						    	<div class="day-am">下午</div><div class="day-c">5</div><div class="day-c">6</div><div class="day-c">7</div><div class="day-c">8</div>
 						    	<div class="course-m"></div>
 						    </div>
-							<div class="day"><div class="day-head">周一</div>
-								<div class="course-b"><span id="course-name">jQuery实战D得到的的大阿福</span><br><span class="text-info">李黑</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-c"></div><div class="course-c"></div>
+							<div id="day-1"class="day"><div class="day-head">周一</div>
+								<div id="c-1">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-3">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
 								<div class="course-m"></div>
-								<div class="course-b"><span id="course-name">jQuery实战</span><br><span class="text-info">李黑</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-b"><span id="course-name">高等数学</span><br><span class="text-info">李白</span><br><span class="text-danger">5-303</span></div>
-								<div class="course-m"></div>
-							</div>
-							<div class="day"><div class="day-head">周二</div>
-								<div class="course-b"><span id="course-name">高等数学</span><br><span class="text-info">高斯</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-c"></div><div class="course-c"></div>
-								<div class="course-m"></div>
-								<div class="course-c"></div><div class="course-c"></div>
-								<div class="course-b"><span id="course-name">大学物理</span><br><span class="text-info">牛顿</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-m"></div>
-							</div>
-							<div class="day"><div class="day-head">周三</div>
-								<div class="course-c"></div><div class="course-c"></div>
-								<div class="course-b"><span id="course-name">数据结构</span><br><span class="text-info">成龙</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-m"></div>
-								<div class="course-b"><span id="course-name">大学英语</span><br><span class="text-info">Jon Snow</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-c"></div><div class="course-c"></div>
+								<div id="c-5">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-7">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
 								<div class="course-m"></div>
 							</div>
-							<div class="day"><div class="day-head">周四</div>
-								<div class="course-c"></div><div class="course-c"></div>
-								<div class="course-b"><span id="course-name">编译原理</span><br><span class="text-info">台湾佬</span><br><span class="text-danger">5-302</span></div>
+							<div id="day-2"class="day"><div class="day-head">周二</div>
+								<div id="c-1">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-3">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
 								<div class="course-m"></div>
-								<div class="course-c"></div>
-								<div class="course-b"><span id="course-name">C语言</span><br><span class="text-info">刘邦</span><br><span class="text-danger">5-302</span></div>
-								<div class="course-c"></div>
+								<div id="c-5">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-7">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
 								<div class="course-m"></div>
 							</div>
-							<div class="day"><div class="day-head">周五</div>
-								<div class="course-c"></div><div class="course-c"></div>
-								<div class="course-c"></div><div class="course-c"></div>
+							<div id="day-3"class="day"><div class="day-head">周三</div>
+								<div id="c-1">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-3">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
 								<div class="course-m"></div>
-								<div class="course-c"></div><div class="course-c"></div>
-								<div class="course-c"></div><div class="course-c"></div>
+								<div id="c-5">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-7">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div class="course-m"></div>
+							</div>
+							<div id="day-4"class="day"><div class="day-head">周四</div>
+								<div id="c-1">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-3">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div class="course-m"></div>
+								<div id="c-5">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-7">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div class="course-m"></div>
+							</div>
+							<div id="day-5"class="day"><div class="day-head">周五</div>
+								<div id="c-1">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-3">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div class="course-m"></div>
+								<div id="c-5">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
+								<div id="c-7">
+									<div class="course-c"></div>
+									<div class="course-c"></div>
+								</div>
 								<div class="course-m"></div>
 							</div>
 							

@@ -36,6 +36,7 @@
 		<dwr:convert type="bean" class="org.zyh.iclass.model.UserDTO"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.Classroom"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.Student"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.ClassCourse"></dwr:convert>
 	</dwr:configuration>
 	
 	<!-- Service公开给DWR的方法 -->
@@ -88,6 +89,14 @@
  			<dwr:include method="deleteApplyCdm"/>
  			<dwr:include method="updateApplyCdm"/>
  			<dwr:include method="findApplyCdm"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	 	<bean id="classCourseService" class="org.zyh.iclass.service.ClassCourseService">
+ 		<dwr:remote javascript="classCourseService">
+ 			<dwr:include method="addClassCourse"/>
+ 			<dwr:include method="deleteClassCourse"/>
+ 			<dwr:include method="updateClassCourse"/>
+ 			<dwr:include method="listByClassId"/>
  		</dwr:remote>
  	</bean>
  	

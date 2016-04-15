@@ -53,4 +53,5 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 		String hql = "from Student";
 		return this.list(hql);
 	}
+	
 }

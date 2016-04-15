@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/collegeService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/classroomService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/studentService.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/classCourseService.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/main-style.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/pager.css" rel="stylesheet">
@@ -35,11 +36,11 @@
 		//处理是否登录时导航栏
 		var loginUser = $.cookie('loginUser');
 		if(loginUser==undefined||loginUser==""){
-			console.log("loginUser-->"+"undefinded");
+			//console.log("loginUser-->"+"undefinded");
 			$("#menu-u-login").clone().appendTo("#top-nav").show();
 		} 
 		if(loginUser!=undefined&&loginUser!=""){
-			console.log("loginUser-->"+loginUser)
+			//console.log("loginUser-->"+loginUser)
 			initLogined();
 		}
 		
@@ -78,6 +79,95 @@
 			})
 		})
 		
+		//课程表
+		$(".day").on("mouseenter",function(){
+			$(this).find("#day-course-edit").show();
+			$(this).addClass("day-se");
+		})
+		$(".day").on("mouseleave",function(){
+			$(this).find("#day-course-edit").hide();
+			$(this).removeClass("day-se");
+		})
+		function switchDay(value,day) {
+			switch(value.start)  //第几节课
+			{
+				case 1:{
+					var c  = "#c-1";
+					$(day).find(c).find("div").remove();
+					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
+					$(day).find(c).find("#course-name").text(value.courseName);
+					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
+					$(day).find(c).find("#course-place").text(value.coursePlace);
+					break;
+				}
+				case 3:{
+					var c  = "#c-3";
+					$(day).find(c).find("div").remove();
+					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
+					$(day).find(c).find("#course-name").text(value.courseName);
+					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
+					$(day).find(c).find("#course-place").text(value.coursePlace);
+					break;
+				}
+				case 5:{
+					var c  = "#c-5";
+					$(day).find(c).find("div").remove();
+					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
+					$(day).find(c).find("#course-name").text(value.courseName);
+					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
+					$(day).find(c).find("#course-place").text(value.coursePlace);
+					break;
+				}
+				case 7:{
+					var c  = "#c-7";
+					$(day).find(c).find("div").remove();
+					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
+					$(day).find(c).find("#course-name").text(value.courseName);
+					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
+					$(day).find(c).find("#course-place").text(value.coursePlace);
+					break;
+				}
+			}
+		}
+		$("#class-syllabus").on("click",function(){
+			classCourseService.listByClassId(1,function(courses){
+				$.each(courses,function(n,value){
+					switch(value.day)
+					{
+						case 1:{  //周一
+							var day = "#day-1";
+							switchDay(value,day);
+							break;
+						}
+						case 2:{  //周二
+							var day = "#day-2";
+							switchDay(value,day);
+							break;
+						}
+						case 3:{  //周三
+							var day = "#day-3";
+							switchDay(value,day);
+							break;
+						}
+						case 4:{  //周四
+							var day = "#day-4";
+							switchDay(value,day);
+							break;
+						}
+						case 5:{  //周五
+							var day = "#day-5";
+							switchDay(value,day);
+							break;
+						}
+						default:{
+							console.log(value);
+							console.log("--------");
+							break;
+						}
+					}
+				})
+			})
+		})
 /* 		$("#class-members-page-size").on("change",function(e){
 			var size = parseInt($("#class-members-page-size").find("option:selected").text());
 			studentService.findStudent(1,size,function(pager){

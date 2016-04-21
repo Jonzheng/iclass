@@ -2,29 +2,29 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<div id="class-box" class="class-box">
+<div id="course-box" class="class-box">
 <!-- 左侧菜单栏 -->
 		<div class="sidebar-left">
 			<div class="list-group">
-			<a href="#" class="list-group-item active">这里是班级</a>
-		    <a id='left-my-class' href="" class="list-group-item">我的班级</a>
-		  	<a id='left-join-class' href="" class="list-group-item">加入班级</a>
-		    <a id='left-create-class' href="" class="list-group-item">创建班级</a>
+			<a href="#" class="list-group-item active">课程</a>
+		    <a id='left-my-class' href="" class="list-group-item">我的课程</a>
+		  	<a id='left-join-class' href="" class="list-group-item">Apple</a>
+		    <a id='left-create-class' href="" class="list-group-item">Banana</a>
 		    </div>
 		</div>
-<!-- ================我的班级================ -->
+<!-- ================我的课程================ -->
 		<div id="my-class" class="container-right">
 			<div class="body-head">
-				<h4 class="text-info">2012软件工程</h4>
+				<h4 class="text-info">高等数学</h4>
 			</div>
 			<div class="body-content">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
 				  <li><a href="#inform" data-toggle="tab">通知公告</a></li>
 				  <li><a id="class-member" href="#member" data-toggle="tab">成员</a></li>
-				  <li><a id="class-syllabus" href="#syllabus" data-toggle="tab">班级课程表</a></li>
-				<!--   <li><a href="#mission" data-toggle="tab">作业任务</a></li> -->
-				  <li><a id="share-file" href="#file" data-toggle="tab">共享文件</a></li>
+				  <li><a id="class-syllabus" href="#syllabus" data-toggle="tab">课程表</a></li>
+				  <li><a href="#mission" data-toggle="tab">作业任务</a></li>
+				  <li><a id="share-file" href="#file" data-toggle="tab">文件</a></li>
 				</ul>
 				<!-- Tab panes -->
 				  <div class="tab-content">

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.zyh.iclass.model.Pager;
@@ -24,7 +25,7 @@ public interface IUserService {
 	 * @throws MessagingException 
 	 * @throws AddressException 
 	 */
-	public User register(User user) throws NoSuchAlgorithmException, AddressException, MessagingException;
+	public User register(User user, HttpServletRequest request) throws NoSuchAlgorithmException, AddressException, MessagingException;
 	
 	/**
 	 * 添加用户，需要判断用户名是否存在，如果存在抛出异常

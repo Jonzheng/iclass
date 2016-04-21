@@ -1010,4 +1010,31 @@ a:link, a:visited, a:hover, a:focus {
 	border-right: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 }
+.modal-course {
+  margin: 30px auto;
+  width: 320px;
+}
+.btn-class-share {
+  background-color: #5bc0de;
+  border-color: #46b8da;
+  color: #fff;
+  border-radius: 3px;
+  padding: 0px 15px;
+}
+.upload-share-btn {
+  top: 10px;
+  left: 735px;
+  position: relative;
+}
 
+.course-sm {
+  width:200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #555;
+  font-size: 1.1em;
+  height: 34px;
+  text-align: center;
+  line-height: 1.5;
+  padding: 5px 10px;
+}

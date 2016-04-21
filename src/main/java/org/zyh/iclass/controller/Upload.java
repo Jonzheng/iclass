@@ -20,8 +20,6 @@ import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.util.SystemOutLogger;
 import org.directwebremoting.json.JsonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,11 +27,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.zyh.iclass.model.AjaxObj;
 import org.zyh.iclass.model.College;
+import org.zyh.iclass.model.ShareFile;
 import org.zyh.iclass.model.Student;
 import org.zyh.iclass.model.SystemContext;
 import org.zyh.iclass.model.User;
 import org.zyh.iclass.model.UserDTO;
 import org.zyh.iclass.service.ICollegeService;
+import org.zyh.iclass.service.IShareFileService;
 import org.zyh.iclass.service.IStudentService;
 import org.zyh.iclass.service.IUserService;
 import org.zyh.iclass.util.ExportExcelUtil;
@@ -49,6 +49,8 @@ public class Upload {
 	@Inject
 	private IUserService userService;
 	@Inject
+	private IShareFileService shareFileService;
+	@Inject
 	private IStudentService stuService;
 
 
@@ -59,6 +61,10 @@ public class Upload {
 	
 	@RequestMapping("/")
 	public  String index() {
+		return "redirect:/resources/user/home.jsp";
+	}
+	@RequestMapping("/resources/user/")
+	public  String tohome() {
 		return "redirect:/resources/user/home.jsp";
 	}
 	
@@ -77,7 +83,7 @@ public class Upload {
 					//过期激活失败
 					u.setActivateTime(Long.parseLong("-1"));
 					//重新发送激活邮件
-					u = MailUtil.activateMail(u);
+					u = MailUtil.activateMail(u,request);
 					//重新设置了过期时间和token
 					userService.updateUser(u);
 					
@@ -135,11 +141,32 @@ public class Upload {
 		Filedata.transferTo(f);
 	}
 	
+	@RequestMapping("/uploadShare")
+	public void uploadShare(MultipartFile Filedata,HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain;charset=utf-8");
+		AjaxObj ao = new AjaxObj();
+		resp.getWriter().write(JsonUtil.toJson(ao));
+		String realPath = SystemContext.getRealPath();
+		//System.out.println(realPath);
+		File f = new File(realPath+"upload/"+Filedata.getOriginalFilename());
+		if(f.exists()){
+			//如果存在就替换
+			f.delete();
+		}
+		Filedata.transferTo(f);
+		ShareFile sf = new ShareFile();
+		sf.setName(Filedata.getOriginalFilename());
+		sf.setUploader("test");
+		sf.setDate(new Date());
+		sf.setPath(f.getPath());
+		shareFileService.addFile(sf);
+	}
+	
 	@RequestMapping("/stuExcel")
 	public void stuExcel(String title, HttpServletResponse resp) {
 		try {
 			//String title = "2012软件工程";
-			title = "class_";
+			title = "2012软件工程";
 			String realPath = SystemContext.getRealPath();
 			String path = realPath+"upload/"+title+System.currentTimeMillis()+".xls";
 			
@@ -160,11 +187,46 @@ public class Upload {
 			resp.reset();
 			// 设置response的Header
 			resp.addHeader("Content-Disposition", "attachment;filename="
-					+ new String(filename.getBytes()));
+					+ new String(filename.getBytes("gbk"), "iso8859-1"));
 			resp.addHeader("Content-Length", "" + file.length());
 			OutputStream toClient = new BufferedOutputStream(
 					resp.getOutputStream());
 			resp.setContentType("application/vnd.ms-excel;charset=utf-8");
+			toClient.write(buffer);
+			toClient.flush();
+			toClient.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/downloadShare")
+	public void downloadShare(HttpServletRequest request, HttpServletResponse resp) {
+		try {
+			int id = Integer.valueOf(request.getParameter("id"));
+			String path = shareFileService.loadById(id).getPath();
+			if(path==null) {
+				return;
+			}
+			File file = new File(path);
+			// 取得文件名。
+			String filename = file.getName();
+			// 以流的形式下载文件。
+			InputStream fis = new BufferedInputStream(new FileInputStream(path));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			// 清空response
+			resp.reset();
+			// 设置response的Header
+			resp.addHeader("Content-Disposition", "attachment;filename="
+					+ new String(filename.getBytes("gbk"), "iso8859-1"));
+			resp.addHeader("Content-Length", "" + file.length());
+			OutputStream toClient = new BufferedOutputStream(
+					resp.getOutputStream());
+			resp.setContentType("application/x-msdownload;charset=utf-8");
 			toClient.write(buffer);
 			toClient.flush();
 			toClient.close();

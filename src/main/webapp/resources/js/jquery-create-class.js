@@ -1,14 +1,6 @@
 (function($){
 	
 	initCreateClass = function(e){
-		
-		$("#menu-class").on("click",function(e){
-			e.preventDefault();
-			$("#user-box").hide();
-			$("#index-box").hide();
-			$("#class-box").show();
-		})
-		
 		//点进页面初始化第一个选项框
 		$("#left-create-class").on("click",function(e){
 			e.preventDefault();

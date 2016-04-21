@@ -184,12 +184,6 @@
 			})
 		});
 //-------------------------个人信息----------------------------------
-		$("#menu-index").on("click",function(e){
-			e.preventDefault();
-			$("#user-box").hide();
-			$("#class-box").hide();
-			$("#index-box").show();
-		})
 		//登录后显示的菜单	
  		$("#basic-info").on("mouseenter",function(){
 			$("#person-info-edit").show(100);

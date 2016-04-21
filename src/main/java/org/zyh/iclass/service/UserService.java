@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -127,7 +128,7 @@ public class UserService implements IUserService {
 		return userDao.listRoleUsers(rid);
 	}
 	@Override
-	public User register(User user) throws AddressException, NoSuchAlgorithmException, MessagingException{
+	public User register(User user, HttpServletRequest request) throws AddressException, NoSuchAlgorithmException, MessagingException{
 		User u = this.loadByEmail(user.getEmail());
 		if(u==null) {
 			user.setPassword(SecurityUtil.md5(user.getPassword()));
@@ -136,7 +137,7 @@ public class UserService implements IUserService {
 			user.setType("student");
 			user.setPower(0);
 			user.setLevel(0);
-			user = MailUtil.activateMail(user);
+			user = MailUtil.activateMail(user,request);
 			this.add(user);
 			Student stu = new Student();
 			stu.setUserId(user.getId());

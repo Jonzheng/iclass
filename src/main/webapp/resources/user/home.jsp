@@ -21,6 +21,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/classroomService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/studentService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/classCourseService.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/shareFileService.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/main-style.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/pager.css" rel="stylesheet">
@@ -28,6 +29,27 @@
     <link href="<%=request.getContextPath()%>/resources/css/index-style.css" rel="stylesheet">
 	<script type="text/javascript">
     $(function(){
+		$("#menu-index").on("click",function(e){
+			e.preventDefault();
+			$("#user-box").hide();
+			$("#class-box").hide();
+			$("#course-box").hide();
+			$("#index-box").show();
+		})
+		$("#menu-class").on("click",function(e){
+			e.preventDefault();
+			$("#user-box").hide();
+			$("#index-box").hide();
+			$("#course-box").hide();
+			$("#class-box").show();
+		})
+		$("#menu-course").on("click",function(e){
+			e.preventDefault();
+			$("#user-box").hide();
+			$("#class-box").hide();
+			$("#index-box").hide();
+			$("#course-box").show();
+		})
 		$('input').iCheck({
 		    checkboxClass: 'icheckbox_flat-blue',
 		    radioClass: 'iradio_flat-blue',
@@ -88,43 +110,99 @@
 			$(this).find("#day-course-edit").hide();
 			$(this).removeClass("day-se");
 		})
+		$("#sele-course").on("change",function(){
+			var day = $("#co-day").val();
+			var dayId = "#day-"+day;
+			var cId = "#c-"+$(this).val();
+			var name = $(dayId).find(cId).find(".course-b:first").find("#course-name").text();
+			var teacher = $(dayId).find(cId).find(".course-b:first").find("#course-teacher").text();
+			var place = $(dayId).find(cId).find(".course-b:first").find("#course-place").text();
+			$("#co-name").val(name);
+			$("#co-teacher").val(teacher);
+			$("#co-place").val(place);
+			$("#co-box").data("dayId",dayId);
+			$("#co-box").data("cId",cId);
+		})
+		$(".day").on("click",function(){
+			//console.log($(this).data("id"))
+			var day = $(this).data("id");
+			var dayId = "#day-"+day;
+			var name = $(dayId).find("#c-1").find(".course-b:first").find("#course-name").text();
+			var teacher = $(dayId).find("#c-1").find(".course-b:first").find("#course-teacher").text();
+			var place = $(dayId).find("#c-1").find(".course-b:first").find("#course-place").text();
+			//初始编辑框
+			$("#co-day").val(day);
+			$("#co-name").val(name);
+			$("#co-teacher").val(teacher);
+			$("#co-place").val(place);
+			$("#sele-course").val(1);
+			$("#co-box").data("dayId",dayId);
+			$("#co-box").data("cId","#c-1");
+			$("#modal-class-course").modal("show");
+		})
+		$("#course-save").on("click",function(){
+			var dayId = $("#co-box").data("dayId");
+			var cId = $("#co-box").data("cId");
+
+			var id = $(dayId).find(cId).data("id");
+			var classId = $(dayId).find(cId).data("classId");
+			var start = $(dayId).find(cId).data("start");
+			var last = $(dayId).find(cId).data("last");
+			var day = $("#co-day").val();
+			var name = $("#co-name").val();
+			var teacher = $("#co-teacher").val();
+			var place = $("#co-place").val();
+			var course = {"id":id,"classId":classId,"start":start,"last":last,"day":day,"courseName":name,"courseTeacher":teacher,"coursePlace":place};
+			classCourseService.updateClassCourse(course,function(){
+				$("#modal-class-course").modal("hide");
+				setCourse(cId,dayId,course);
+			})
+		})
+		function setCourse(c,day,value) {
+			//保存不显示数据
+			$(day).find(c).data("id",value.id);
+			$(day).find(c).data("classId",value.classId);
+			$(day).find(c).data("start",value.start);
+			$(day).find(c).data("last",value.last);
+			name = value.courseName;
+			teacher = value.courseTeacher;
+			place = value.coursePlace;
+			$(day).find(c).find("div").remove();
+			$(day).find(c).append('<div class="course-c"></div><div class="course-c"></div>');
+			if(name==""||teacher==""||place=="") {
+				return;
+			}
+			if(name==null||teacher==null||place==null) {
+				return;
+			}
+			$(day).find(c).find("div").remove();
+			$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
+			$(day).find(c).find("#course-name").text(name);
+			$(day).find(c).find("#course-teacher").text(teacher);
+			$(day).find(c).find("#course-place").text(place);
+		}
 		function switchDay(value,day) {
+			$(day).data("id",value.day);
 			switch(value.start)  //第几节课
 			{
 				case 1:{
 					var c  = "#c-1";
-					$(day).find(c).find("div").remove();
-					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
-					$(day).find(c).find("#course-name").text(value.courseName);
-					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
-					$(day).find(c).find("#course-place").text(value.coursePlace);
+					setCourse(c,day,value);
 					break;
 				}
 				case 3:{
 					var c  = "#c-3";
-					$(day).find(c).find("div").remove();
-					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
-					$(day).find(c).find("#course-name").text(value.courseName);
-					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
-					$(day).find(c).find("#course-place").text(value.coursePlace);
+					setCourse(c,day,value);
 					break;
 				}
 				case 5:{
 					var c  = "#c-5";
-					$(day).find(c).find("div").remove();
-					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
-					$(day).find(c).find("#course-name").text(value.courseName);
-					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
-					$(day).find(c).find("#course-place").text(value.coursePlace);
+					setCourse(c,day,value);
 					break;
 				}
 				case 7:{
 					var c  = "#c-7";
-					$(day).find(c).find("div").remove();
-					$(day).find(c).append('<div class="course-b"><span id="course-name">-</span><br><span id="course-teacher"class="text-info">-</span><br><span id="course-place" class="text-danger">-</span></div>');
-					$(day).find(c).find("#course-name").text(value.courseName);
-					$(day).find(c).find("#course-teacher").text(value.courseTeacher);
-					$(day).find(c).find("#course-place").text(value.coursePlace);
+					setCourse(c,day,value);
 					break;
 				}
 			}
@@ -167,6 +245,36 @@
 					}
 				})
 			})
+		})
+		//共享文件上传
+		$("#class-share").uploadify({
+			'width' : 90,
+			'queueSizeLimit' : 3,
+			'buttonText' : '上传文件',
+			'buttonClass' : 'btn-class-share',
+			'fileTypeExts' : ' *.xlsx; *.docx; *.doc; *.rar; *.zip',
+			'swf' : "../uploadify/uploadify.swf",
+			'uploader':"../../uploadShare",
+			'onUploadStart' : function(file) {
+				if(file.size>50000000) {
+					alert("上传文件不能大于50M");
+					return;
+				}
+			},
+	       'onUploadSuccess' : function(file, data, response) {
+	    	   $("#share-file").trigger("click");
+	        }
+		});
+		$("#share-file").on("click",function(){
+			$("#file").find("hr").find("div").remove();
+			shareFileService.listFile(function(files){
+				$.each(files,function(n,value){
+					var path = value.path;
+					var date = value.date;
+					var time = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+					$("#file").find("hr").append('<div class="class-container"><div class="class-desc"><h4 class="text-primary"><span id="file-na">'+value.name+'</span></h4><p class="text-muted">上传者:<span id="file-up">'+value.uploader+'</span>&nbsp;&nbsp;时间:<span id="file-ti">'+time+'</span></p></div><div class="btn-div"><a class="class-btn" href="/iclass/downloadShare?id='+value.id+'">下载</a></div></div>');
+				})
+			});
 		})
 /* 		$("#class-members-page-size").on("change",function(e){
 			var size = parseInt($("#class-members-page-size").find("option:selected").text());
@@ -270,6 +378,8 @@
 	<jsp:include page="box-info.jsp" flush="true"/>
 <!-- 班级 -->
 	<jsp:include page="box-class.jsp" flush="true"/>
+<!-- 课程 -->
+	<jsp:include page="box-course.jsp" flush="true"/>
 <!-- 底部 -->
 	<div class="footer border-y">
 		<span class="text-muted">zhengzran@gmail.com</span><br>

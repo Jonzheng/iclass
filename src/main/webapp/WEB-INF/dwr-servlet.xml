@@ -23,7 +23,7 @@
 	 </property> 
 	</bean>
 	
-	<dwr:controller id="dwrController" debug="false"/>
+	<dwr:controller id="dwrController" debug="true"/>
 	<dwr:configuration>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.User"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.Pager"></dwr:convert>
@@ -37,6 +37,7 @@
 		<dwr:convert type="bean" class="org.zyh.iclass.model.Classroom"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.Student"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.ClassCourse"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.ShareFile"></dwr:convert>
 	</dwr:configuration>
 	
 	<!-- Service公开给DWR的方法 -->
@@ -91,12 +92,20 @@
  			<dwr:include method="findApplyCdm"/>
  		</dwr:remote>
  	</bean>
- 	 	<bean id="classCourseService" class="org.zyh.iclass.service.ClassCourseService">
+ 	 <bean id="classCourseService" class="org.zyh.iclass.service.ClassCourseService">
  		<dwr:remote javascript="classCourseService">
  			<dwr:include method="addClassCourse"/>
  			<dwr:include method="deleteClassCourse"/>
  			<dwr:include method="updateClassCourse"/>
  			<dwr:include method="listByClassId"/>
+ 			<dwr:include method="listByDay"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	<bean id="shareFileService" class="org.zyh.iclass.service.ShareFileService">
+ 		<dwr:remote javascript="shareFileService">
+ 			<dwr:include method="addFile"/>
+ 			<dwr:include method="deleteFile"/>
+ 			<dwr:include method="listFile"/>
  		</dwr:remote>
  	</bean>
  	

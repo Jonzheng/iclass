@@ -9,5 +9,5 @@ public interface IClassCourseDao {
 	public void deleteClassCourse(int id);
 	public void updateClassCourse(ClassCourse classCourse);
 	public List<ClassCourse> listByClassId(int classId);
-
+	public List<ClassCourse> listByDay(int day);
 }

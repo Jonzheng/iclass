@@ -34,4 +34,9 @@ public class ClassCourseService implements IClassCourseService {
 		return classCourseDao.listByClassId(classId);
 	}
 
+	@Override
+	public List<ClassCourse> listByDay(int day) {
+		return classCourseDao.listByDay(day);
+	}
+
 }

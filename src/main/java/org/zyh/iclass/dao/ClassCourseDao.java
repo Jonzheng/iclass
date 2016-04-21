@@ -29,4 +29,10 @@ public class ClassCourseDao extends BaseDao<ClassCourse>implements IClassCourseD
 		return this.list(hql, classId);
 	}
 
+	@Override
+	public List<ClassCourse> listByDay(int day) {
+		String hql = "from ClassCourse where day = ?";
+		return this.list(hql, day);
+	}
+
 }

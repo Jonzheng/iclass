@@ -13,7 +13,11 @@ public interface IStudentService {
 	public Student loadStudent(int id);
 	public Student loadByUserId(int id);
 	public List<Student> listStudent();
-	public Pager<Student> findStudent(int curPage,int pageSize);
-	public Pager<Student> findStudent(int curPage,int pageSize,String sort,String order);
+	public Pager<Student> findStudentByClassId(int classId,int curPage,int pageSize);
+	public Pager<Student> findStudentByClassId(int classId,int curPage,int pageSize,String sort,String order);
+	public Pager<Student> findStudentByCourseId(int courseId,int curPage,int pageSize);
+	public Pager<Student> findStudentByCourseId(int courseId,int curPage,int pageSize,String sort,String order);
 	public Pager<Student> findByString(String string,int curPage,int pageSize);
+	public Pager<Student> findByStringAndClassId(int classId,String string,int curPage,int pageSize);
+	public Pager<Student> findByStringAndCourseId(int courseId,String string,int curPage,int pageSize);
 }

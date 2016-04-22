@@ -7,8 +7,8 @@ div.footer {
     background: #ededed none repeat scroll 0 0;
     text-align: center;
     color: #777;
-    height: 160px;
-    padding-top:50px;
+    height: 100px;
+    padding-top:20px;
 }
 .class-box {
 	display:none;
@@ -230,6 +230,22 @@ div.border-b {
     text-align: center;
 }
 .tab-content > div > div > table > tfoot {
+    font-size: 1.1em;
+    text-align: center;
+}
+
+#course-member-box > table > thead {
+    background: #39adb4 none repeat scroll 0 0;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 36px;
+    text-align: center;
+}
+#course-member-box > table > tbody {
+    text-align: center;
+}
+#course-member-box > table > tfoot {
     font-size: 1.1em;
     text-align: center;
 }
@@ -1037,4 +1053,39 @@ a:link, a:visited, a:hover, a:focus {
   text-align: center;
   line-height: 1.5;
   padding: 5px 10px;
+}
+
+.fixed-bottom {
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+a.items {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #ccc -moz-use-text-color #ddd #666;
+  border-image: none;
+  border-style: solid none solid solid;
+  border-width: 1px 0 1px 5px;
+  color: #555;
+  display: block;
+  font-weight: bold;
+  outline: medium none;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+a.item {
+  background-color: #eee;
+  border-left: 5px solid #999;
+  font-weight: normal;
+  padding: 8px 30px;
+}
+a.item:hover {
+	background-color:#aaccdd;
 }

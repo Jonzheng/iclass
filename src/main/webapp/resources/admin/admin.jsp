@@ -207,8 +207,8 @@
   <div class="content-container">
 		<div class="sidebar-left">
 			<div class="item-group">
-			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="items">用户管理<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
-	              <div id="collapseOne" class="panel-collapse collapse">
+			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseCourse" class="items">课程<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+	              <div id="collapseCourse" class="panel-collapse collapse">
 	        			<a id="left-user" href="#" class="items item">用户</a>
 	        			<a id="left-student" href="#" class="items item">学生</a>
 	        			<a id="left-teacher" href="#" class="items item">教师</a>

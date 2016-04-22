@@ -13,6 +13,9 @@ public interface IStudentDao {
 	public Student loadStudent(int id);
 	public Student loadByUserId(int id);
 	public List<Student> listStudent();
-	public Pager<Student> findStudent();
+	public Pager<Student> findStudentByClassId(int classId);
+	public Pager<Student> findStudentByCourseId(int courseId);
 	public Pager<Student> findByString(String string);
+	public Pager<Student> findByStringAndClassId(int classId,String string);
+	public Pager<Student> findByStringAndCourseId(int courseId,String string);
 }

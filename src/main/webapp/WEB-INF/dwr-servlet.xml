@@ -70,8 +70,11 @@
  			<dwr:include method="deleteStudent"/>
  			<dwr:include method="loadStudent"/>
  			<dwr:include method="loadByUserId"/>
- 			<dwr:include method="findStudent"/>
+ 			<dwr:include method="findStudentByClassId"/>
+ 			<dwr:include method="findStudentByCourseId"/>
  			<dwr:include method="findByString"/>
+ 			<dwr:include method="findByStringAndClassId"/>
+ 			<dwr:include method="findByStringAndCourseId"/>
  		</dwr:remote>
  	</bean>
  	<bean id="collegeService" class="org.zyh.iclass.service.CollegeService">

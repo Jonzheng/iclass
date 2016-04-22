@@ -53,15 +53,15 @@ public class StudentService implements IStudentService {
 	}
 
 	@Override
-	public Pager<Student> findStudent(int curPage, int pageSize) {
+	public Pager<Student> findStudentByClassId(int classId, int curPage, int pageSize) {
 		this.setPP(curPage, pageSize);
-		return studentDao.findStudent();
+		return studentDao.findStudentByClassId(classId);
 	}
 
 	@Override
-	public Pager<Student> findStudent(int curPage, int pageSize, String sort, String order) {
+	public Pager<Student> findStudentByClassId(int classId, int curPage, int pageSize, String sort, String order) {
 		this.setFour(curPage, pageSize, sort, order);
-		return studentDao.findStudent();
+		return studentDao.findStudentByClassId(classId);
 	}
 	@Override
 	public Pager<Student> findByString(String string, int curPage, int pageSize) {
@@ -71,5 +71,25 @@ public class StudentService implements IStudentService {
 	@Override
 	public List<Student> listStudent() {
 		return studentDao.listStudent();
+	}
+	@Override
+	public Pager<Student> findStudentByCourseId(int courseId, int curPage, int pageSize) {
+		this.setPP(curPage, pageSize);
+		return studentDao.findStudentByClassId(courseId);
+	}
+	@Override
+	public Pager<Student> findStudentByCourseId(int courseId, int curPage, int pageSize, String sort, String order) {
+		this.setFour(curPage, pageSize, sort, order);
+		return studentDao.findStudentByClassId(courseId);
+	}
+	@Override
+	public Pager<Student> findByStringAndClassId(int classId, String string, int curPage, int pageSize) {
+		this.setPP(curPage, pageSize);
+		return studentDao.findByStringAndClassId(classId, string);
+	}
+	@Override
+	public Pager<Student> findByStringAndCourseId(int courseId, String string, int curPage, int pageSize) {
+		this.setPP(curPage, pageSize);
+		return studentDao.findByStringAndCourseId(courseId, string);
 	}
 }

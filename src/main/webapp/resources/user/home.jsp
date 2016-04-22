@@ -29,6 +29,20 @@
     <link href="<%=request.getContextPath()%>/resources/css/index-style.css" rel="stylesheet">
 	<script type="text/javascript">
     $(function(){
+		$('.panel-collapse').on('show.bs.collapse hide.bs.collapse', function () {
+  	      	$(this).prev().find("span").toggleClass("glyphicon-chevron-down");
+  	     })
+    	$("#collapseCourse").collapse("show");
+		$("#left-course-member").on("click",function(e){
+			e.preventDefault();
+			$("#course-syllabus").hide();
+			$("#course-member").show();
+		});
+		$("#left-course-syllabus").on("click",function(e){
+			e.preventDefault();
+			$("#course-member").hide();
+			$("#course-syllabus").show();
+		});
 		$("#menu-index").on("click",function(e){
 			e.preventDefault();
 			$("#user-box").hide();
@@ -65,14 +79,27 @@
 			//console.log("loginUser-->"+loginUser)
 			initLogined();
 		}
-		
-		//---------jquery-class-myClass----------------------
-		$("#class-member").on("click",function(){
-			studentService.findStudent(1,15,function(pager){
+		//---------jquery-class-myCourse----------------------
+/* 		$("#class-member").on("click",function(){
+			studentService.findStudentByClassId(0,1,15,function(pager){
 				$.studentTable(pager);
 				$.createPager(pager,"#list-class-member-pager",{callback:function(){
 					var curPage = $("#list-class-member-pager").data("curPage");
-					studentService.findStudent(curPage,15,function(pager){
+					studentService.findStudentByClassId(0,curPage,15,function(pager){
+						$.studentTable(pager);
+					})
+					}
+				})
+			})
+		}) */
+		
+		//---------jquery-class-myClass----------------------
+		$("#class-member").on("click",function(){
+			studentService.findStudentByClassId(0,1,15,function(pager){
+				$.studentTable(pager);
+				$.createPager(pager,"#list-class-member-pager",{callback:function(){
+					var curPage = $("#list-class-member-pager").data("curPage");
+					studentService.findStudentByClassId(0,curPage,15,function(pager){
 						$.studentTable(pager);
 					})
 					}
@@ -89,11 +116,11 @@
 		})
 		$("#class-members-search").on("keyup",function(){
 			var str = $("#class-members-search").val().trim();
-			studentService.findByString(str,1,15,function(pager){
+			studentService.findByStringAndClassId(0,str,1,15,function(pager){
 				$.studentTable(pager);
 				$.createPager(pager,"#list-class-member-pager",{callback:function(){
 					var curPage = $("#list-class-member-pager").data("curPage");
-					studentService.findByString(str,curPage,15,function(pager){
+					studentService.findByStringAndClassId(0,str,curPage,15,function(pager){
 						$.studentTable(pager);
 					})
 					}

@@ -168,7 +168,7 @@ public class Upload {
 			//String title = "2012软件工程";
 			title = "2012软件工程";
 			String realPath = SystemContext.getRealPath();
-			String path = realPath+"upload/"+title+System.currentTimeMillis()+".xls";
+			String path = realPath+title+System.currentTimeMillis()+".xls";
 			
 			OutputStream out = new FileOutputStream(path);
 			List<Student> stus = new ArrayList<>();

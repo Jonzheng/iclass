@@ -18,6 +18,7 @@ public class Student {
 	 * 班级id
 	 */
 	private int classId;
+	private int courseId;
 	private String name;
 	private String sex;
 	/**
@@ -80,6 +81,13 @@ public class Student {
 	}
 	public void setClassId(int classId) {
 		this.classId = classId;
+	}
+	@Column(name="course_id")
+	public int getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
 	}
 	public String getName() {
 		return name;

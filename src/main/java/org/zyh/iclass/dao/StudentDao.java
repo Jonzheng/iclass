@@ -36,11 +36,31 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 	}
 
 	@Override
-	public Pager<Student> findStudent() {
-		String hql = "from Student";
-		return this.find(hql);
+	public Pager<Student> findStudentByClassId(int classId) {
+		String hql = "from Student where classId =?";
+		return this.find(hql,classId);
 	}
-
+	
+	@Override
+	public Pager<Student> findStudentByCourseId(int courseId) {
+		String hql = "from Student where classId =?";
+		return this.find(hql,courseId);
+	}
+	
+	@Override
+	public Pager<Student> findByStringAndClassId(int classId,String string) {
+		String str = "%"+string+"%";
+		String hql = "from Student where classId=? and (studentId like ? or name like ? or mobile like ? or doorplate like ? or qqNum like ? or shortMobile like ?)";
+		return this.find(hql, new Object[]{classId,str,str,str,str,str,str});
+	}
+	
+	@Override
+	public Pager<Student> findByStringAndCourseId(int courseId,String string) {
+		String str = "%"+string+"%";
+		String hql = "from Student where courseId=? and (studentId like ? or name like ? or mobile like ? or doorplate like ? or qqNum like ? or shortMobile like ?)";
+		return this.find(hql, new Object[]{courseId,str,str,str,str,str,str});
+	}
+	
 	@Override
 	public Pager<Student> findByString(String string) {
 		String str = "%"+string+"%";
@@ -53,5 +73,5 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 		String hql = "from Student";
 		return this.list(hql);
 	}
-	
+
 }

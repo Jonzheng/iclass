@@ -23,9 +23,11 @@ import org.zyh.iclass.model.College;
 import org.zyh.iclass.model.Department;
 import org.zyh.iclass.model.Major;
 import org.zyh.iclass.model.Pager;
+import org.zyh.iclass.model.Student;
 import org.zyh.iclass.model.User;
 import org.zyh.iclass.service.IClassroomService;
 import org.zyh.iclass.service.ICollegeService;
+import org.zyh.iclass.service.IStudentService;
 import org.zyh.iclass.service.IUserService;
 import org.zyh.iclass.util.MailUtil;
 
@@ -36,6 +38,8 @@ public class TestUser {
 	private SessionFactory sessionFactory;
 	@Inject
 	private IUserService userService;
+	@Inject
+	private IStudentService studentService;
 	@Inject
 	private IUserDao userDao;
 	@Inject
@@ -199,6 +203,14 @@ public class TestUser {
 		for(User u:us.getDatas()) {
 			print(u);
 		}
+	}
+	@Test
+	public void testFindStu() {
+		Pager<Student> us = studentService.findStudentByCourseId(1, 1, 15);
+		for(Student u:us.getDatas()) {
+			//System.out.println(u);
+		}
+		System.out.println(us.getTotal());
 	}
 	@After
 	public void tearDown(){

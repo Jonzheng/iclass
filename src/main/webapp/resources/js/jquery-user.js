@@ -16,12 +16,12 @@
 		$("select").val(pager.size);
 	}
 	//-----------------studentTable---------------------------
-	$.studentTable = function(pager){
-		$("#t-class-members").find("tbody").find("tr").remove();
+	$.studentTable = function(pager,tableId){
+		$(tableId).find("tbody").find("tr").remove();
 		
 		var us = pager.datas;
 		$.each(us,function(n,value){
-			$("#t-class-members").find("tbody").append("<tr><td>"+(pager.offset+n+1)+"</td><td>"+value.studentId+"</td><td>"+value.name+
+			$(tableId).find("tbody").append("<tr><td>"+(pager.offset+n+1)+"</td><td>"+value.studentId+"</td><td>"+value.name+
 					"</td><td>"+value.mobile+"</td><td>"+value.shortMobile+"</td><td>"+
 					value.qqNum+"</td><td>"+value.doorplate+
 					"</td></tr>");
@@ -29,22 +29,45 @@
 		if(us.length<pager.size);
 		var ex = pager.size-us.length;
 		for(var i=0;i<ex;i++) {
-			$("#t-class-members").find("tbody").append("<tr><td class='td-filling'>#</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+			$(tableId).find("tbody").append("<tr><td class='td-filling'>#</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 		}
 		//更改表格样式
-		$("#t-class-members").find("tbody").find("tr:odd").addClass("info").end().find("tr:even").addClass("warning");
+		$(tableId).find("tbody").find("tr:odd").addClass("info").end().find("tr:even").addClass("warning");
 	}
 	$.stuTable = function(pager){
-		$("#t-class-members").find("tbody").find("tr").remove();
+		$(tableId).find("tbody").find("tr").remove();
 		
 		var us = pager.datas;
 		$.each(us,function(n,value){
-			$("#t-class-members").find("tbody").append("<tr><td>"+(pager.offset+n+1)+"</td><td>"+value.studentId+"</td><td>"+value.name+
+			$(tableId).find("tbody").append("<tr><td>"+(pager.offset+n+1)+"</td><td>"+value.studentId+"</td><td>"+value.name+
 					"</td><td>"+value.mobile+"</td><td>"+value.shortMobile+"</td><td>"+
 					value.qqNum+"</td><td>"+value.doorplate+
 					"</td></tr>");
 		});
 		//更改表格样式
-		$("#t-class-members").find("tbody").find("tr:odd").addClass("info").end().find("tr:even").addClass("warning");
+		$(tableId).find("tbody").find("tr:odd").addClass("info").end().find("tr:even").addClass("warning");
+	}
+	//-----------------callrollTable---------------------------
+	$.callRollTable = function(pager,tableId){
+		$(tableId).find("tbody").find("tr").remove();
+		
+		var us = pager.datas;
+		$.each(us,function(n,value){
+			$(tableId).find("tbody").append("<tr><td>"+(pager.offset+n+1)+"</td><td>"+value.studentId+"</td><td>"+value.name+
+					"</td><td>"+value.point+
+					'</td><td><div class="btn-group modal-radio" data-toggle="buttons">'+
+					'<label class="btn btn-xs btn-default"><input type="radio" name="ca" id="in-radio" value="1">出勤</label>'+
+					'<label class="btn btn-xs btn-default"><input type="radio" name="ca" id="in-radio" value="2">迟到</label>'+
+					'<label class="btn btn-xs btn-default"><input type="radio" name="ca" id="in-radio" value="3">旷课</label>'+
+					'<label class="btn btn-xs btn-default"><input type="radio" name="ca" id="in-radio" value="4">请假</label>'+
+					'</div></td></tr>');
+		});
+		if(us.length<pager.size);
+		var ex = pager.size-us.length;
+		for(var i=0;i<ex;i++) {
+			$(tableId).find("tbody").append("<tr><td class='td-filling'>#</td><td></td><td></td><td></td><td></td></tr>");
+		}
+		//更改表格样式
+		$(tableId).find("tbody").find("tr:odd").addClass("info").end().find("tr:even").addClass("warning");
 	}
 })(jQuery);

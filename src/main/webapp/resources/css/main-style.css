@@ -160,6 +160,9 @@ div.border-b {
 	border-bottom:4px solid #66afe9;
 	
 }
+button#add-call {
+	margin-left:20px;
+}
 .f-width {
 	float:left;
 	display:block;
@@ -178,6 +181,15 @@ div.border-b {
     border-radius: 4px;
     color: #555;
     height: 34px;
+    font-size:1.1em;
+}
+#call-select > select {
+	padding: 0px 15px;
+	text-align:center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    height: 28px;
     font-size:1.1em;
 }
 .search-width {
@@ -246,6 +258,22 @@ div.border-b {
     text-align: center;
 }
 #course-member-box > table > tfoot {
+    font-size: 1.1em;
+    text-align: center;
+}
+
+#course-call-roll-box > table > thead {
+    background: #39adb4 none repeat scroll 0 0;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 36px;
+    text-align: center;
+}
+#course-call-roll-box > table > tbody {
+    text-align: center;
+}
+#course-call-roll-box > table > tfoot {
     font-size: 1.1em;
     text-align: center;
 }
@@ -369,6 +397,12 @@ a.class-btn:hover {
 	padding-right:4px;
 	float:left;
 	width:150px;
+	font-weight:normal;
+}
+.call-select {
+	padding-left:4px;
+	padding-right:4px;
+	float:left;
 	font-weight:normal;
 }
 .body-search {

@@ -85,7 +85,7 @@
 							<div class="">
 								<div class="title-label">搜索：</div>
 					  			<div class="body-search"><input id='class-members-search' type='text' class='form-control input-sm'></div>
-					  			<div class="title-label pull-right"><a id="stu-excle" class='add-btn' href='../../stuExcel'>导出Excel</a></div>
+					  			<div class="title-label pull-right"><a id="stu-excle" class='add-btn' href='../../classExcel'>导出Excel</a></div>
 							</div>
 						  </div><!-- table-title -->
 						   <table id="t-class-members" class="table table-bordered table-condensed">
@@ -148,8 +148,8 @@
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-						  <div id="syllabus-box" class="member-box">
-						  <div class="syllabus-box">
+						  <div class="member-box">
+						  <div id="class-course" class="syllabus-box">
 						    <div class="day-z">
 						    	<div class="day-head">#</div><div class="day-am">上午</div><div class="day-c">1</div><div class="day-c">2</div><div class="day-c">3</div><div class="day-c">4</div>
 						    	<div class="course-m"></div>

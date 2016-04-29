@@ -162,8 +162,8 @@ public class Upload {
 		shareFileService.addFile(sf);
 	}
 	
-	@RequestMapping("/stuExcel")
-	public void stuExcel(String title, HttpServletResponse resp) {
+	@RequestMapping("/classExcel")
+	public void classExcel(String title, HttpServletResponse resp) {
 		try {
 			//String title = "2012软件工程";
 			title = "2012软件工程";
@@ -172,7 +172,47 @@ public class Upload {
 			
 			OutputStream out = new FileOutputStream(path);
 			List<Student> stus = new ArrayList<>();
-			stus = stuService.listStudent();
+			stus = stuService.listByClassId(0);
+			ExportExcelUtil.exportExcel(title, stus, out);
+			
+			File file = new File(path);
+			// 取得文件名。
+			String filename = file.getName();
+			// 以流的形式下载文件。
+			InputStream fis = new BufferedInputStream(new FileInputStream(path));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			// 清空response
+			resp.reset();
+			// 设置response的Header
+			resp.addHeader("Content-Disposition", "attachment;filename="
+					+ new String(filename.getBytes("gbk"), "iso8859-1"));
+			resp.addHeader("Content-Length", "" + file.length());
+			OutputStream toClient = new BufferedOutputStream(
+					resp.getOutputStream());
+			resp.setContentType("application/vnd.ms-excel;charset=utf-8");
+			toClient.write(buffer);
+			toClient.flush();
+			toClient.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/courseExcel")
+	public void courseExcel(String title, HttpServletResponse resp) {
+		try {
+			//String title = "2012软件工程";
+			title = "高等数学-学生名单";
+			String realPath = SystemContext.getRealPath();
+			String path = realPath+title+System.currentTimeMillis()+".xls";
+			
+			OutputStream out = new FileOutputStream(path);
+			List<Student> stus = new ArrayList<>();
+			stus = stuService.listByCourseId(1);
 			ExportExcelUtil.exportExcel(title, stus, out);
 			
 			File file = new File(path);

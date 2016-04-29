@@ -159,6 +159,7 @@
 		$("#menu-u-avatar").on("click",function(){
 			$("#index-box").hide();
 			$("#class-box").hide();
+			$("#course-box").hide();
 			$("#user-box").show();
 			var username = $.cookie('loginUser');
 			userService.loadByUsername(username,function(lu){

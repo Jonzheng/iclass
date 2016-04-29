@@ -92,4 +92,12 @@ public class StudentService implements IStudentService {
 		this.setPP(curPage, pageSize);
 		return studentDao.findByStringAndCourseId(courseId, string);
 	}
+	@Override
+	public List<Student> listByClassId(int classId) {
+		return studentDao.listByClassId(classId);
+	}
+	@Override
+	public List<Student> listByCourseId(int courseId) {
+		return studentDao.listByCourseId(courseId);
+	}
 }

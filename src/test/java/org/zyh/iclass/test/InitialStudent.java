@@ -19,6 +19,7 @@ import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+import org.zyh.iclass.dao.ICallRollDao;
 import org.zyh.iclass.model.Pager;
 import org.zyh.iclass.model.Student;
 import org.zyh.iclass.service.IStudentService;
@@ -32,12 +33,19 @@ public class InitialStudent {
 	
 	@Inject
 	private IStudentService stuService;
+	@Inject
+	private ICallRollDao callRollDao;
 	
 	@Before
 	public void setUp() {
         Session session = sessionFactory.openSession();
         session.setFlushMode(FlushMode.MANUAL);
         TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
+	}
+	
+	@Test
+	public void initCallRoll(){
+		callRollDao.initCallRoll(1);
 	}
 	
 	@Test

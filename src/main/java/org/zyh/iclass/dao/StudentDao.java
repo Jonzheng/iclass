@@ -74,4 +74,16 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 		return this.list(hql);
 	}
 
+	@Override
+	public List<Student> listByClassId(int classId) {
+		String hql = "from Student where classId=?";
+		return this.list(hql,classId);
+	}
+
+	@Override
+	public List<Student> listByCourseId(int courseId) {
+		String hql = "from Student where courseId=?";
+		return this.list(hql,courseId);
+	}
+
 }

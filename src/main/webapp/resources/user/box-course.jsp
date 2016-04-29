@@ -11,37 +11,36 @@
 	        			<a id="left-course-member" href="" class="items item">学生成员</a>
 	        			<a id="left-course-syllabus" href="#" class="items item">课程表</a>
 	        			<a id="left-teacher" href="#" class="items item">作业布置</a>
-	        			<a id="left-teacher" href="#" class="items item">课堂点名</a>
+	        			<a id="left-course-call-roll" href="" class="items item">课堂点名</a>
 	  			  </div>
 			</div>
 		</div>
 <!-- ================课程成员================= -->
 		<div id="course-member" class="container-right">
 			<div class="body-head">
-				<h4 id="course-title"class="text-info"><small class="text-primary">课程名称—</small>高等数学</h4>
+				<h4 id="course-title"class="text-info"><small id="course-creator"class="text-primary">但丁</small>--<span id="course-name">高等数学</span></h4>
 			</div>
 			<!-- 班级元素 -->
-				  	<div id="" class="member-box">
+				<div id="course-member-box" class="member-box">
 				  	<!-- 班级成员 -->
 				  	  <div class="table-title">
 						<div class="">
 							<div class="title-label">搜索：</div>
-				  			<div class="body-search"><input id='class-members-search' type='text' class='form-control input-sm'></div>
-				  			<div class="title-label pull-right"><a id="stu-excle" class='add-btn' href='../../stuExcel'>导出Excel</a></div>
+				  			<div class="body-search"><input id='course-members-search' type='text' class='form-control input-sm'></div>
+				  			<div class="title-label pull-right"><a id="stu-excle" class='add-btn' href='../../courseExcel'>导出Excel</a></div>
 						</div>
 					  </div><!-- table-title -->
-					   <table id="t-class-members" class="table table-bordered table-condensed">
+					   <table id="t-course-members" class="table table-bordered table-condensed">
 			              <thead>
 			              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>长号</td><td>短号</td><td>QQ</td><td>宿舍</td></tr>
 			              </thead>
 			              <tbody>
-						  <!-- <tr><td><button id="delete-btn" class="btn btn-danger btn-opera">删除</button></td></tr> -->
 			              </tbody>
 			              <tfoot>
 			              <tr><td colspan="7">
 			               <div class='class-member-pager-container'>
-			                 <ul id="list-class-member-pager" class="page"></ul>
-                              </div>
+			                 <ul id="list-course-member-pager" class="page"></ul>
+                           </div>
                              </td></tr>
 			              </tfoot>
 					 </table>
@@ -54,10 +53,52 @@
 		<!-- ================课程表================= -->
 		<div id="course-syllabus" class="container-right">
 			<div class="body-head">
-				<h4 id="course-title"class="text-info"><small class="text-primary">课程名称—</small>高等数学</h4>
+				<h4 id="course-title"class="text-info"><small id="course-creator"class="text-primary">但丁</small>--<span id="course-name">高等数学</span></h4>
 			</div>
-				<div id="" class="member-box">
-				  <div class="syllabus-box">
+				<!-- 编辑班级课程表-->
+				<div class="modal fade" id="modal-teacher-course" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title">编辑课程</h4>
+				      </div>
+				      <div id="to-box"class="modal-body">
+				      	<div class="input-container">
+							<label id="">星&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期：</label>
+							<input id="to-day" type="text" readonly="readonly" class="n-input input-sm">
+						</div>
+				      	<div class="input-container">
+				      		<label id="">选择课程：</label>
+							<select id="tsele-course" class="course-sm">
+								<option value='1'>1-2</option>
+								<option value='3'>3-4</option>
+								<option value='5'>5-6</option>
+								<option value='7'>7-8</option>
+							</select>
+						</div>
+			      		<div class="input-container">
+							<label id="">课程名称：</label>
+							<input id="to-name" type="text" class="n-input input-sm">
+						</div>
+						<div class="input-container">
+							<label id="">任课老师：</label>
+							<input id="to-teacher" type="text" class="n-input input-sm">
+						</div>
+						<div class="input-container">
+							<label id="">上课地点：</label>
+							<input id="to-place" type="text" class="n-input input-sm">
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				        <button id ='t-course-save' type="button" class="btn btn-primary">保存</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<div class="member-box">
+				  <div id="teacher-course" class="syllabus-box">
 				    <div class="day-z">
 				    	<div class="day-head">#</div><div class="day-am">上午</div><div class="day-c">1</div><div class="day-c">2</div><div class="day-c">3</div><div class="day-c">4</div>
 				    	<div class="course-m"></div>
@@ -126,5 +167,50 @@
 					</div>
 			  </div>
 			 </div>
+		</div>
+		
+	<!-- ================课堂点名================= -->
+		<div id="course-call-roll" class="container-right">
+			<div class="body-head">
+				<h4 id="course-title"class="text-info"><small id="course-creator"class="text-primary">但丁</small>--<span id="course-name">高等数学</span></h4>
+			</div>
+			<!-- 班级元素 -->
+				<div id="course-call-roll-box" class="member-box">
+				  	<!-- 班级成员 -->
+				  	  <div class="table-title">
+							<div class="title-label">第</div>
+								<div id="call-select" class="call-select">
+								<select id="call-page-size" class=''>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+								</select>
+								</div>
+							<div class="title-label">节课 </div>
+							<button id="add-call" class='btn btn-default btn-sm'>添加课节</button>
+							<button id="add-call" class='btn btn-default btn-sm'>点名统计</button>
+							<button id="add-call" class='btn btn-default btn-sm'>分数计算规则</button>
+					  </div><!-- table-title -->
+					   <table id="t-course-call" class="table table-bordered table-condensed">
+			              <thead>
+			              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>分数</td><td>考勤</td></tr>
+			              </thead>
+			              <tbody>
+			              </tbody>
+			              <tfoot>
+			              <tr><td colspan="7">
+			               <div class='class-member-pager-container'>
+			                 <ul id="list-course-call-pager" class="page"></ul>
+                           </div>
+                             </td></tr>
+			              </tfoot>
+					 </table>
+				  	</div>
+			<div class='classroom-pager-container'>
+				<ul id="list-classroom-pager" class="page"></ul>
+			</div>
 		</div>
 </div>

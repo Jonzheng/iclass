@@ -93,7 +93,7 @@
 				var nn = $("#reg-username").val().trim();
 				var ph = $("#reg-phone").val().trim();
 				var pw = $("#reg-pwd").val().trim();
-				var ar = "m_"+randomNum(1,6);
+				var ar = "m_"+randomNum(1,6)+".png";
 				var u = {"email":e,"nickname":nn,"username":nn,"phone":ph,"password":pw,avatar:ar};
 				sendMail = function(u) {
 					var ac = $("#reg-ac").data("v");
@@ -129,7 +129,7 @@
 			if(lu!=null) {
 				if(lu.password=="1"&&lu.status==1) {
 					//登录成功
-					console.log(lu);
+					//console.log(lu);
 					//存储菜单小头像
 					$.cookie('sm_img',"../smAvatar/s"+lu.avatar);
 					$.cookie('old_img',lu.tempAvatar);
@@ -163,7 +163,7 @@
 			$("#user-box").show();
 			var username = $.cookie('loginUser');
 			userService.loadByUsername(username,function(lu){
-				console.log(lu)
+				//console.log(lu)
 				//初始化页面个人信息
 				var m_img = "../avatar/"+lu.avatar;
 				$("#info-avatar").css("background-image","url("+m_img+")");
@@ -178,7 +178,10 @@
 				//初始化联系信息
 				initContact(lu);
 				studentService.loadByUserId(lu.id,function(stu){
-					console.log(stu)
+					//console.log(stu)
+					//$("#menu-u-avatar").data("stuId",stu.id);
+					$.cookie('classId',stu.classId);
+					$.cookie('stuId',stu.id);
 					initInfo(stu);
 					initStudent(stu);
 				})

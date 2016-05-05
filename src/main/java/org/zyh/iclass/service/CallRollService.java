@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.zyh.iclass.dao.ICallRollDao;
+import org.zyh.iclass.dao.ICallTotalDao;
 import org.zyh.iclass.model.CallRoll;
+import org.zyh.iclass.model.CallTotal;
 import org.zyh.iclass.model.Pager;
 import org.zyh.iclass.model.SystemContext;
 
@@ -15,6 +17,9 @@ public class CallRollService implements ICallRollService {
 	
 	@Inject
 	private ICallRollDao callRollDao;
+	
+	@Inject
+	private ICallTotalDao callTotalDao;
 
 	@Override
 	public void addCallRoll(CallRoll callRoll) {
@@ -56,6 +61,18 @@ public class CallRollService implements ICallRollService {
 		SystemContext.setPageOffset(curPage*pageSize-pageSize);
 		SystemContext.setPageSize(pageSize);
 		return callRollDao.findByCourseIdAndSectionId(courseId, sectionId);
+	}
+
+	@Override
+	public void newCallRoll(int courseId, int section) {
+		try {
+			callRollDao.newCallRoll(courseId,section);
+			CallTotal ct = callTotalDao.loadByCouraseId(courseId);
+			ct.setSection(ct.getSection()+1);
+			callTotalDao.updateCallTotal(ct);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

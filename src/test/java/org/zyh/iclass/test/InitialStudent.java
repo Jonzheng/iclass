@@ -49,6 +49,11 @@ public class InitialStudent {
 	}
 	
 	@Test
+	public void newCallRoll(){
+		callRollDao.newCallRoll(1,1);
+	}
+	
+	@Test
 	public void initStudents(){
 		for(int i=50;i<60;i++) {
 			Student stu = new Student();

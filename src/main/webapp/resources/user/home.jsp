@@ -24,6 +24,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/teacherCourseService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/shareFileService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/callRollService.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/callTotalService.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/main-style.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/pager.css" rel="stylesheet">
@@ -31,6 +32,10 @@
     <link href="<%=request.getContextPath()%>/resources/css/index-style.css" rel="stylesheet">
 	<script type="text/javascript">
     $(function(){
+ 		$('input:radio[name="ca"]').on("change",function(){
+ 			console.log(11)
+ 		})
+    	
 		$('.panel-collapse').on('show.bs.collapse hide.bs.collapse', function () {
   	      	$(this).prev().find("span").toggleClass("glyphicon-chevron-down");
   	     })
@@ -92,11 +97,12 @@
 		}
 		//---------jquery-class-myCourse----------------------
  		$("#left-course-member").on("click",function(){
-			studentService.findStudentByCourseId(1,1,15,function(pager){
+ 			var classId = $("#menu-u-avatar").data("classId");
+			studentService.findStudentByCourseId(classId,1,15,function(pager){
 				$.studentTable(pager,"#t-course-members");
 				$.createPager(pager,"#list-course-member-pager",{callback:function(){
 					var curPage = $("#list-course-member-pager").data("curPage");
-					studentService.findStudentByCourseId(1,curPage,15,function(pager){
+					studentService.findStudentByCourseId(classId,curPage,15,function(pager){
 						$.studentTable(pager,"#t-course-members");
 					})
 					}
@@ -104,18 +110,108 @@
 			})
 		});
  		$("#left-course-call-roll").on("click",function(){
-			callRollService.findByCourseIdAndSectionId(1,1,1,90,function(pager){
-				console.log(pager)
-				$.callRollTable(pager,"#t-course-call");
-				$.createPager(pager,"#list-course-call-pager",{callback:function(){
-					var curPage = $("#list-course-call-pager").data("curPage");
-					studentService.findStudentByCourseId(1,curPage,90,function(pager){
-						$.callRollTable(pager,"#t-course-call");
+ 			$("#t-call-total").hide();
+ 			$("#t-course-call").show();
+ 			callTotalService.loadByCouraseId(1,function(callTotal){
+ 				var courseId = callTotal.courseId;
+ 				var section = callTotal.section;
+ 				$("#course-call-roll-box").data("courseId",courseId);
+ 				$("#course-call-roll-box").data("section",section);
+ 				$("#call-section-size").find("option").remove();
+ 				for(var i=0;i<callTotal.section;i++){
+ 					$("#call-section-size").append('<option>'+(i+1)+'</option>');
+ 				}
+ 				$("#call-section-size").find("option").last().attr("selected",true)
+ 				callRollService.findByCourseIdAndSectionId(courseId,section,1,65,function(pager){
+					$.callRollTable(pager,"#t-course-call",callTotal);
+					$.createPager(pager,"#list-course-call-pager",{callback:function(){
+						var curPage = $("#list-course-call-pager").data("curPage");
+						studentService.findStudentByCourseId(courseId,curPage,90,function(pager){
+							$.callRollTable(pager,"#t-course-call");
+						})
+						}
 					})
-					}
-				})
-			})
+ 				});
+ 			});
 		});
+ 		$("#update-rule").on("click",function(){
+			callTotalService.loadByCouraseId(1,function(callTotal){
+				//console.log(callTotal)
+				$("#course-call-roll-box").data("courseId",callTotal.courseId);
+				$("#course-call-roll-box").data("id",callTotal.id);
+				$("#course-call-roll-box").data("section",callTotal.section);
+	 			$("#rule-present").val(callTotal.present);
+	 			$("#rule-absent").val(callTotal.absent);
+	 			$("#rule-late").val(callTotal.late);
+	 			$("#rule-dayoff").val(callTotal.dayoff);
+			});
+ 			$("#modal-update-rule").modal("show");
+ 		})
+ 		$("#update-rule-save").on("click",function(){
+ 			var present = $("#rule-present").val();
+ 			var absent = $("#rule-absent").val();
+ 			var late = $("#rule-late").val();
+ 			var dayoff = $("#rule-dayoff").val();
+ 			var courseId = $("#course-call-roll-box").data("courseId");
+ 			var id = $("#course-call-roll-box").data("id");
+ 			var section = $("#course-call-roll-box").data("section");
+ 			var callRule = {"id":id,"section":section,"courseId":courseId,"present":present,"absent":absent,"late":late,"dayoff":dayoff};
+ 			callTotalService.updateCallTotal(callRule,function(){
+	 			$("#modal-update-rule").modal("hide");
+ 			})
+ 		})
+ 		//TODO
+ 		$("#new-call").on("click",function(){
+ 			var courseId = $("#course-call-roll-box").data("courseId");
+ 			var section = $("#course-call-roll-box").data("section");
+			callRollService.newCallRoll(courseId,section,function(){
+				$("#left-course-call-roll").trigger("click");
+ 			})
+ 		});
+ 		$("#call-section-size").on("change",function(){
+ 			$("#t-call-total").hide();
+ 			$("#t-course-call").show();
+ 			var courseId = $("#course-call-roll-box").data("courseId");
+ 			var section = $(this).find("option:selected").text();
+			callRollService.findByCourseIdAndSectionId(courseId,section,1,65,function(pager){
+				callTotalService.loadByCouraseId(courseId,function(rule){
+					$.callRollTable(pager,"#t-course-call",rule);
+					$.createPager(pager,"#list-course-call-pager",{callback:function(){
+						var curPage = $("#list-course-call-pager").data("curPage");
+						callRollService.findByCourseIdAndSectionId(courseId,section,curPage,65,function(pager){
+							$.callRollTable(pager,"#t-course-call",rule);
+						})
+						}
+					})
+				})
+			});
+ 		});
+ 		$("#total-call").on("click",function(){
+ 			$("#t-course-call").hide();
+ 			$("#t-call-total").show();
+ 			callTotalService.loadByCouraseId(1,function(callTotal){
+ 				var courseId = callTotal.courseId;
+ 				var section = callTotal.section;
+ 				$("#course-call-roll-box").data("courseId",courseId);
+ 				$("#course-call-roll-box").data("section",section);
+ 				$("#call-section-size").find("option").remove();
+ 				for(var i=0;i<callTotal.section;i++){
+ 					$("#call-section-size").append('<option>'+(i+1)+'</option>');
+ 				}
+ 				$("#call-section-size").find("option").last().attr("selected",true)
+ 				callRollService.findByCourseIdAndSectionId(courseId,section,1,15,function(pager){
+ 					
+ 					$.callTotalTable(pager,"#t-call-total");
+					$.createPager(pager,"#list-call-total-pager",{callback:function(){
+						var curPage = $("#list-call-total-pager").data("curPage");
+						callRollService.findByCourseIdAndSectionId(courseId,section,curPage,15,function(pager){
+							$.callTotalTable(pager,"#t-call-total");
+						})
+						}
+					})
+ 				});
+ 			});
+ 		})
 		//成员搜索
 		$("#course-members-search").on("focusin",function(){
 			$(this).select();
@@ -234,17 +330,18 @@
 		
 		//---------jquery-class-myClass----------------------
 		$("#class-member").on("click",function(){
-			studentService.findStudentByClassId(0,1,15,function(pager){
+			var classId = parseInt($.cookie('classId'));
+			studentService.findStudentByClassId(classId,1,15,function(pager){
 				$.studentTable(pager,"#t-class-members");
 				$.createPager(pager,"#list-class-member-pager",{callback:function(){
 					var curPage = $("#list-class-member-pager").data("curPage");
-					studentService.findStudentByClassId(0,curPage,15,function(pager){
+					studentService.findStudentByClassId(classId,curPage,15,function(pager){
 						$.studentTable(pager,"#t-class-members");
 					})
 					}
 				})
 			})
-		})
+		});
 		//成员搜索
 		$("#class-members-search").on("focusin",function(){
 			$(this).select();

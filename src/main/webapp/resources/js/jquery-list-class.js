@@ -2,6 +2,10 @@
 	initListClass = function(e) {
 		$("#left-my-class").on("click",function(e){
 			e.preventDefault();
+			if($.cookie('classId')==0||undefined==$.cookie('classId')){
+				alert("请先加入班级");
+				return;
+			}
 			$("#create-class").hide();
 			$("#list-class").hide();
 			$("#my-class").show();
@@ -150,6 +154,15 @@
 			$(this).select();
 		})
 	}
+	
+	joinClass = function(classId){
+		var id = $.cookie('stuId');
+		studentService.joinClass(id,classId,function(){
+			$.cookie('classId',classId);
+			alert("已申请加入班级");
+		})
+	}
+	
 	$.listClassroom = function(pager) {
 		var cs = pager.datas;
 		$("#class-item-container").find(".class-container").remove();
@@ -159,7 +172,7 @@
 	    	+"</span><span>—</span></small><span id='l-cna'>"+value.className
 	    	+"</span></h4><p class='text-muted'>班主任:<span id='l-teacher'>"+value.teacher
 	    	+"</span>&nbsp;&nbsp;班长:<span id='l-monitor'>"+value.monitor
-	    	+"</span></p></div><div class='btn-div'><a class='class-btn' href='#'>申请加入</a></div></div>");
+	    	+"</span></p></div><div class='btn-div'><a class='class-btn' href='javascript:joinClass("+value.id+")'>申请加入</a></div></div>");
 			//图片载入
 			var img = "../collegeIco/"+value.imgName;
 			$("#class-item-container").find("#class-item:last-child #class-pic").css("background-image","url("+img+")");

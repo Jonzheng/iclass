@@ -10,6 +10,7 @@ public interface IStudentService {
 	public void addStudent(Student student);
 	public void deleteStudent(int id);
 	public void updateStudent(Student student);
+	public void joinClass(int id, int classId);
 	public Student loadStudent(int id);
 	public Student loadByUserId(int id);
 	public List<Student> listStudent();

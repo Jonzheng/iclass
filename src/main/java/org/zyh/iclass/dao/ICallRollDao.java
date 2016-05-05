@@ -8,7 +8,7 @@ import org.zyh.iclass.model.Pager;
 public interface ICallRollDao {
 	
 	public void initCallRoll(int courseId);
-	public void newCallRoll(int sectionId);
+	public void newCallRoll(int courseId, int section);
 	public void addCallRoll(CallRoll callRoll);
 	public void deleteCallRoll(int id);
 	public void updateCallRoll(CallRoll callRoll);

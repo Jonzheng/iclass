@@ -176,25 +176,49 @@
 			</div>
 			<!-- 班级元素 -->
 				<div id="course-call-roll-box" class="member-box">
+			<!-- 更新规则-->
+				<div class="modal fade" id="modal-update-rule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title">编辑规则</h4>
+				      </div>
+				      <div id="rule-box"class="modal-body">
+			      		<div class="input-container">
+							<label id="">出勤：</label>
+							<input id="rule-present" type="text" class="n-input input-sm" placeholder="分数变更（可以负数）">
+						</div>
+						<div class="input-container">
+							<label id="">迟到：</label>
+							<input id="rule-late" type="text" class="n-input input-sm" placeholder="分数变更（可以负数）">
+						</div>
+						<div class="input-container">
+							<label id="">旷课：</label>
+							<input id="rule-absent" type="text" class="n-input input-sm" placeholder="分数变更（可以负数）">
+						</div>
+						<div class="input-container">
+							<label id="">请假：</label>
+							<input id="rule-dayoff" type="text" class="n-input input-sm" placeholder="分数变更（可以负数）">
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				        <button id ='update-rule-save' type="button" class="btn btn-primary">保存</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 				  	<!-- 班级成员 -->
 				  	  <div class="table-title">
 							<div class="title-label">第</div>
-								<div id="call-select" class="call-select">
-								<select id="call-page-size" class=''>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-								</select>
-								</div>
+								<div id="call-select" class="call-select"><select id="call-section-size" class=''></select></div>
 							<div class="title-label">节课 </div>
-							<button id="add-call" class='btn btn-default btn-sm'>添加课节</button>
-							<button id="add-call" class='btn btn-default btn-sm'>点名统计</button>
-							<button id="add-call" class='btn btn-default btn-sm'>分数计算规则</button>
+							<button id="new-call" class='btn btn-default btn-sm'>添加课节</button>
+							<button id="total-call" class='btn btn-default btn-sm'>点名统计</button>
+							<button id="update-rule" class='btn btn-default btn-sm'>分数计算规则</button>
 					  </div><!-- table-title -->
-					   <table id="t-course-call" class="table table-bordered table-condensed">
+					  <table id="t-course-call" class="table table-bordered table-condensed">
 			              <thead>
 			              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>分数</td><td>考勤</td></tr>
 			              </thead>
@@ -204,6 +228,20 @@
 			              <tr><td colspan="7">
 			               <div class='class-member-pager-container'>
 			                 <ul id="list-course-call-pager" class="page"></ul>
+                           </div>
+                             </td></tr>
+			              </tfoot>
+					 </table>
+					 <table id="t-call-total" class="table table-bordered table-condensed">
+			              <thead>
+			              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>出勤次数</td><td>迟到次数</td><td>旷课次数</td><td>请假次数</td><td>分数</td></tr>
+			              </thead>
+			              <tbody>
+			              </tbody>
+			              <tfoot>
+			              <tr><td colspan="8">
+			               <div class='class-member-pager-container'>
+			                 <ul id="list-call-total-pager" class="page"></ul>
                            </div>
                              </td></tr>
 			              </tfoot>

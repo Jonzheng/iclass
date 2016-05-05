@@ -7,6 +7,7 @@ import org.zyh.iclass.model.Pager;
 
 public interface ICallRollService {
 
+	public void newCallRoll(int courseId, int section);
 	public void addCallRoll(CallRoll callRoll);
 	public void deleteCallRoll(int id);
 	public void updateCallRoll(CallRoll callRoll);

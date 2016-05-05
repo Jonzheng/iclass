@@ -100,4 +100,14 @@ public class StudentService implements IStudentService {
 	public List<Student> listByCourseId(int courseId) {
 		return studentDao.listByCourseId(courseId);
 	}
+	@Override
+	public void joinClass(int id, int classId) {
+		try {
+			Student stu = studentDao.loadStudent(id);
+			stu.setClassId(classId);
+			studentDao.updateStudent(stu);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

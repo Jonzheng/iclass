@@ -14,8 +14,8 @@
 				<div id="login" class="login">
 				<h1 class="login-title">登录iClass</h1>
 					<div class="login-body">
-						<input id='login-email' type="text" class="register-input input-he"  placeholder="用户名/邮箱--test ">
-						<input id='login-password' type="password" class="register-input input-he"  placeholder="密码--112233">
+						<input id='login-email' type="text" class="register-input input-he"  placeholder="用户名/邮箱">
+						<input id='login-password' type="password" class="register-input input-he"  placeholder="密码">
 						<div id="err-container" class="err-container">
 							<div id="login-err" class="login-err">请输入正确的帐号或密码</div>
 						</div>
@@ -71,31 +71,4 @@
 	     </div>
 	   </div>
 	</div>
-	
-	
 
-<div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<script type="text/javascript" src="<%=request.getContextPath()%>
-/resources/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>
-/resources/js/bootstrap.min.js"></script>
-<link href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" rel="stylesheet">
-
-	

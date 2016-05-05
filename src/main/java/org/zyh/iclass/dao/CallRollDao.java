@@ -11,14 +11,15 @@ public class CallRollDao extends BaseDao<CallRoll> implements ICallRollDao {
 
 	@Override
 	public void initCallRoll(int courseId) {
-		String sql = "insert into t_call_roll(section,course_id,student_id,name,absent,absent_r,dayoff,dayoff_r,late,late_r,point,present,present_r,section_t)select 1,course_id,student_id,name,0,-3,0,0,0,-1,60,0,1,0 from t_student t where t.course_id=?";
-		//TODO
+		//String sql = "insert into t_call_roll(section,course_id,student_id,name,absent,absent_r,dayoff,dayoff_r,late,late_r,point,present,present_r,section_t)select 1,course_id,student_id,name,0,-3,0,0,0,-1,60,0,1,0 from t_student t where t.course_id=?";
+		String sql = "insert into CallRoll(section,courseId,studentId,name,absent,dayoff,late,point,present,state)select 1,courseId,studentId,name,0,0,0,60,0,0 from Student where courseId=?";
+		this.updateByHql(sql,courseId);
 	}
 
 	@Override
-	public void newCallRoll(int sectionId) {
-		// TODO Auto-generated method stub
-		
+	public void newCallRoll(int courseId, int section) {
+		String sql = "insert into CallRoll(section,courseId,studentId,name,absent,dayoff,late,point,present,state)select section+1,courseId,studentId,name,absent,dayoff,late,point,present,0 from CallRoll where courseId=? and section=?";
+		this.updateByHql(sql,new Object[]{courseId,section});
 	}
 
 	@Override

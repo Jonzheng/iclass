@@ -7,20 +7,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="t_call_roll")
-public class CallRoll {
-
+@Table(name="t_call_total")
+public class CallTotal {
+	
 	private int id;
 	private int courseId;
 	private int section;
-	private String studentId;
-	private String name;
-	private int point;
 	private int present;
 	private int absent;
 	private int late;
 	private int dayoff;
-	private int state;
 	
 	@Id
 	@GeneratedValue
@@ -42,25 +38,6 @@ public class CallRoll {
 	}
 	public void setSection(int section) {
 		this.section = section;
-	}
-	@Column(name="student_id")
-	public String getStudentId() {
-		return studentId;
-	}
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getPoint() {
-		return point;
-	}
-	public void setPoint(int point) {
-		this.point = point;
 	}
 	public int getPresent() {
 		return present;
@@ -85,12 +62,6 @@ public class CallRoll {
 	}
 	public void setDayoff(int dayoff) {
 		this.dayoff = dayoff;
-	}
-	public int getState() {
-		return state;
-	}
-	public void setState(int state) {
-		this.state = state;
 	}
 	
 }

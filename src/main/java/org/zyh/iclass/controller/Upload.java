@@ -133,7 +133,7 @@ public class Upload {
 		AjaxObj ao = new AjaxObj();
 		resp.getWriter().write(JsonUtil.toJson(ao));
 		String realPath = SystemContext.getRealPath();
-		File f = new File(realPath+"/upload/"+Filedata.getOriginalFilename());
+		File f = new File(realPath+Filedata.getOriginalFilename());
 		if(f.exists()){
 			//如果存在就替换
 			f.delete();
@@ -148,7 +148,7 @@ public class Upload {
 		resp.getWriter().write(JsonUtil.toJson(ao));
 		String realPath = SystemContext.getRealPath();
 		//System.out.println(realPath);
-		File f = new File(realPath+"upload/"+Filedata.getOriginalFilename());
+		File f = new File(realPath+Filedata.getOriginalFilename());
 		if(f.exists()){
 			//如果存在就替换
 			f.delete();

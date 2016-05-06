@@ -207,9 +207,9 @@
   <div class="content-container">
 		<div class="sidebar-left">
 			<div class="item-group">
-			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseCourse" class="items">课程<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseCourse" class="items">用户<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 	              <div id="collapseCourse" class="panel-collapse collapse">
-	        			<a id="left-user" href="#" class="items item">用户</a>
+	        			<a id="left-user" href="#" class="items item">管理员</a>
 	        			<a id="left-student" href="#" class="items item">学生</a>
 	        			<a id="left-teacher" href="#" class="items item">教师</a>
 	  			  </div>
@@ -217,23 +217,21 @@
 			  	  <div id="collapseTwo" class="panel-collapse collapse">
 	        			<a id='left-cdm' href="#" class="items item">学校-系-专业</a>
 	        			<a href="#" class="items item">班级申请</a>
-	        			<a href="#" class="items item">cat</a>
-	        			<a href="#" class="items item">dead</a>
+	        			<a href="#" class="items item">课程申请</a>
 	  			  </div>
-			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="items">BBB <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="items">首页管理<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 			  	  <div id="collapseThree" class="panel-collapse collapse">
 	        			<a href="#" class="items item">apple</a>
 	        			<a href="#" class="items item">boy</a>
 	        			<a href="#" class="items item">cat</a>
 	        			<a href="#" class="items item">dead</a>
 	  			  </div>
-			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="items">DDD <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 			</div>
 		</div>
 		<!-- =================右侧内容区==================== -->
 		<div class="container-right">
 		<!-- ======================标题过滤条件=================== -->
-			<div class="table-title">
+			<div class="table-title" style="display:none">
 				<div class="title-label">显示</div>
 					<div class="body-select">
 					<select id="page-size" class='form-control input-sm'>
@@ -254,7 +252,7 @@
 			
 			<div class="body-content">
 <!-- user用户管理 -->
-	 			<table id='listUser' class="table table-bordered table-hover table-condensed">
+	 			<table id='listUser' class="table table-bordered table-hover table-condensed" style="display:none">
 		              <thead>
 		              </thead>
 		              <tbody>

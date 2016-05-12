@@ -59,6 +59,7 @@ public class Student {
 	 * 宿舍门牌
 	 */
 	private String doorplate;
+	private int toClass;
 	
 	@Id
 	@GeneratedValue
@@ -169,6 +170,12 @@ public class Student {
 	}
 	public void setDoorplate(String doorplate) {
 		this.doorplate = doorplate;
+	}
+	public int getToClass() {
+		return toClass;
+	}
+	public void setToClass(int toClass) {
+		this.toClass = toClass;
 	}
 	
 }

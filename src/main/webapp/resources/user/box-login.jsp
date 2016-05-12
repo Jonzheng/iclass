@@ -71,4 +71,30 @@
 	     </div>
 	   </div>
 	</div>
+	
+	<div class="modal fade" id="modal-login-back" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title">后台登录</h4>
+	      </div>
+	      <div class="modal-body">
+			<div class="login-box" id="login-box">
+				<div id="login" class="login">
+				<h1 class="login-title">后台登录</h1>
+					<div class="login-body">
+						<input id='back-username' type="text" class="register-input input-he"  placeholder="用户名">
+						<input id='back-password' type="password" class="register-input input-he"  placeholder="密码">
+						<div id="err-container" class="err-container">
+							<div id="login-err" class="login-err">请输入正确的帐号或密码</div>
+						</div>
+						<button id='login-back-btn' type="button" class="btn btn-primary login-btn">登录</button>
+					</div>
+				</div>
+			</div>
+	      </div>
+	     </div>
+	   </div>
+	</div>
 

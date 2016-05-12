@@ -2,18 +2,24 @@
 	initListClass = function(e) {
 		$("#left-my-class").on("click",function(e){
 			e.preventDefault();
-			if($.cookie('classId')==0||undefined==$.cookie('classId')){
-				alert("请先加入班级");
-				return;
-			}
 			$("#create-class").hide();
 			$("#list-class").hide();
-			$("#my-class").show();
+			$("#select-course").hide();
+			studentService.loadByUserId($.cookie("userId"),function(stu){
+				if(stu.classId == "0") {
+					alert("未加入任何班级");
+					return;
+				} else{
+					$("#my-class").show();
+					$.cookie('classId',stu.classId);
+				}
+			});
 		});
 		$("#left-join-class").on("click",function(e){
 			e.preventDefault();
 			$("#my-class").hide();
 			$("#create-class").hide();
+			$("#select-course").hide();
 			$("#list-class").show();
 			//初始化筛选
 			cleanFilter();
@@ -24,6 +30,22 @@
 			});
 			$.findAllClassroom();
 		});
+		
+		$("#left-join-course").on("click",function(e){
+			e.preventDefault();
+			$("#create-class").hide();
+			$("#list-class").hide();
+			$("#my-class").hide();
+			courseService.findCourse(function(pager){
+				var cs = pager.datas;
+				$("#select-course-box").find("div").remove();
+				$.each(cs,function(n,value){
+					$("#select-course-box").append('<div class="tag"><span>'+value.name+'-'+value.teacher+'</span></div>');
+				})
+				$("#select-course").show();
+			});
+		});
+		
 		//选项框事件
 		$("#f-college").on("change",function(e){
 			$("#f-department").find("option").not(":first-child").remove();
@@ -155,11 +177,15 @@
 		})
 	}
 	
-	joinClass = function(classId){
-		var id = $.cookie('stuId');
-		studentService.joinClass(id,classId,function(){
-			$.cookie('classId',classId);
-			alert("已申请加入班级");
+	toClass = function(classId){
+		studentService.loadByUserId($.cookie("userId"),function(stu){
+			if(stu.name == "" || stu.name == null || stu.studentId == "" || stu.studentId == null){
+				alert("请先填写个人信息");
+				return;
+			}
+			studentService.toClass(stu.id,classId,function(){
+				alert("已申请加入班级，请等待审批");
+			})
 		})
 	}
 	
@@ -172,7 +198,7 @@
 	    	+"</span><span>—</span></small><span id='l-cna'>"+value.className
 	    	+"</span></h4><p class='text-muted'>班主任:<span id='l-teacher'>"+value.teacher
 	    	+"</span>&nbsp;&nbsp;班长:<span id='l-monitor'>"+value.monitor
-	    	+"</span></p></div><div class='btn-div'><a class='class-btn' href='javascript:joinClass("+value.id+")'>申请加入</a></div></div>");
+	    	+"</span></p></div><div class='btn-div'><a class='class-btn' href='javascript:toClass("+value.id+")'>申请加入</a></div></div>");
 			//图片载入
 			var img = "../collegeIco/"+value.imgName;
 			$("#class-item-container").find("#class-item:last-child #class-pic").css("background-image","url("+img+")");

@@ -136,6 +136,7 @@
 					initLogined();
 					//制作饼干
 					$.cookie('loginUser',lu.username);
+					$.cookie('power',lu.power);
 					$.cookie('userId',lu.id);
 					if($("#login-remember").is(":checked")){
 						$.cookie('sm_img',"../smAvatar/s"+lu.avatar,{ expires: 7 });
@@ -180,7 +181,6 @@
 				studentService.loadByUserId(lu.id,function(stu){
 					//console.log(stu)
 					//$("#menu-u-avatar").data("stuId",stu.id);
-					$.cookie('classId',stu.classId);
 					$.cookie('stuId',stu.id);
 					initInfo(stu);
 					initStudent(stu);
@@ -323,6 +323,8 @@
 		//登出
 		$("#logout").on("click",function(e){
 			$.cookie('loginUser',"");
+			$.cookie('userId',"");
+			$.cookie('classId',"");
 			$.cookie('sm_img',"");
 			window.location.reload();
 			$("#menu-index").trigger("click");

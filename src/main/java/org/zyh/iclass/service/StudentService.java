@@ -105,9 +105,25 @@ public class StudentService implements IStudentService {
 		try {
 			Student stu = studentDao.loadStudent(id);
 			stu.setClassId(classId);
+			stu.setToClass(0);
 			studentDao.updateStudent(stu);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public void toClass(int id, int classId) {
+		try {
+			Student stu = studentDao.loadStudent(id);
+			stu.setToClass(classId);
+			stu.setClassId(0);
+			studentDao.updateStudent(stu);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public Pager<Student> findToClass() {
+		return studentDao.findToClass();
 	}
 }

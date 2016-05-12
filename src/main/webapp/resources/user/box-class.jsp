@@ -9,6 +9,7 @@
 			<a href="#" class="list-group-item active">这里是班级</a>
 		    <a id='left-my-class' href="" class="list-group-item">我的班级</a>
 		  	<a id='left-join-class' href="" class="list-group-item">加入班级</a>
+		  	<a id='left-join-course' href="" class="list-group-item">选择课程</a>
 		    <a id='left-create-class' href="" class="list-group-item">创建班级</a>
 		    </div>
 		</div>
@@ -255,6 +256,19 @@
 			</div>
 			<div class='classroom-pager-container'>
 				<ul id="list-classroom-pager" class="page"></ul>
+			</div>
+		</div>
+		
+<!-- ================选择课程================= -->
+		<div id="select-course" class="container-right">
+			<div id="course-find-box" class="member-box">
+				<div id="info-course-box"class="tags info-class-box padding-left">
+					<h3>选择课程</h3>
+					<div id="select-course-box" class="tags clear-fix">
+						<div class="tag"><span>高等数学-Jon</span></div>
+						<div class="tag"><span>汇编原理-但丁</span></div>
+					</div>
+				</div>
 			</div>
 		</div>
 		

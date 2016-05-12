@@ -23,6 +23,12 @@ div.footer {
     width:100%;
     z-index: 10;
 }
+
+.padding-left{
+	padding-left: 30px;
+    padding-right: 30px;
+}
+
 .class-box {
 	display:none;
 	padding:10px 10px;
@@ -526,16 +532,18 @@ select#c-grade,select#c-class {
 	float:left;
 	width:360px;
 }
+
 #c-link:hover {
+	cursor:pointer;
+}
+.pointer{
 	cursor:pointer;
 }
 .create-btn {
 	float:right;
 	width:150px;
 }
-.n-input {
-	
-}
+
 .n-input {
 	width:200px;
 	background-color: #fff;

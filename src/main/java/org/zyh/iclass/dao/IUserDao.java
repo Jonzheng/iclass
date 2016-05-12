@@ -9,6 +9,8 @@ import org.zyh.iclass.model.User;
 import org.zyh.iclass.model.UserRole;
 
 public interface IUserDao extends IBaseDao<User> {
+	
+	public User loginBack(String username, String password);
 	/**
 	 * 获取用户的所有角色信息
 	 * @param userId

@@ -10,8 +10,9 @@
 	              <div id="collapseCourse" class="panel-collapse collapse">
 	        			<a id="left-course-member" href="" class="items item">学生成员</a>
 	        			<a id="left-course-syllabus" href="#" class="items item">课程表</a>
-	        			<a id="left-teacher" href="#" class="items item">作业布置</a>
+	        			<!-- <a id="left-teacher" href="#" class="items item">作业布置</a> -->
 	        			<a id="left-course-call-roll" href="" class="items item">课堂点名</a>
+	        			<a id="left-add-course" href="" class="items item">课程管理</a>
 	  			  </div>
 			</div>
 		</div>
@@ -249,6 +250,44 @@
 				  	</div>
 			<div class='classroom-pager-container'>
 				<ul id="list-classroom-pager" class="page"></ul>
+			</div>
+		</div>
+		
+		<div id="course-find" class="container-right">
+			<div class="body-head">
+				<h4 id="course-title"class="text-info"><small id="course-creator"class="text-primary">但丁</small>--<span id="course-name">高等数学</span></h4>
+			</div>
+			<!-- 班级元素 -->
+				<div id="course-find-box" class="member-box">
+				<div class="modal fade" id="modal-add-course" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title">新增课程</h4>
+				      </div>
+				      <div id="rule-box"class="modal-body">
+						<div class="input-container">
+							<label id="">课程名称：</label>
+							<input id="add-course-name" type="text" class="n-input input-sm" placeholder="输入课程名称">
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				        <button id ='add-course-save' type="button" class="btn btn-primary">保存</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+				<div id="info-course-box"class="tags info-class-box padding-left">
+					<h3>所有课程</h3>
+					<div id="all-course-box" class="tags clear-fix">
+						<div class="tag"><span>jQuery实战</span></div>
+						<div class="tag"><span>java编程思想</span></div>
+						<div id="add-course-show" class="tag add-tag pointer"><span>+</span></div>
+					</div>
+				</div>
 			</div>
 		</div>
 </div>

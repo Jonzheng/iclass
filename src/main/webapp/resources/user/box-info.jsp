@@ -128,7 +128,7 @@
 	      <div id="s-qq-err"class="edit-err">腾讯是你家开的吗?</div>
 	      <div id="s-doorplate-err"class="edit-err">字数不允许</div>
 	      
-		<div id="info-class-edit" class="info-class-edit">
+<!-- 		<div id="info-class-edit" class="info-class-edit">
 			<div id="class-pic" class="class-pic" style="background-image: url('../collegeIco/1hzu-1.png')"></div>
 			<div class="class-desc">
 			<h4 class="text-primary">
@@ -150,7 +150,7 @@
 			   <a id="s-class-cancel" class="class-btn none" href="#">取消</a>
 			   <a id="s-class-exit" class="class-btn none" href="#">退出班级</a>
 			</div>
-		</div>
+		</div> -->
 	      <div id="class-info-edit" class="modal-body">   <!-- body -->
 			<div class="contact-input-container">
 				<span>学号：</span>
@@ -255,7 +255,7 @@
 			<div class="edit-box">
 				<i id="person-class-edit" class="glyphicon glyphicon-edit person-contact-edit"></i>
 			</div>
-			<h3>我的班级</h3>
+<!-- 			<h3>我的班级</h3>
 			<div id="info-class" class="info-class">
 				<div id="class-pic" class="class-pic" style="background-image: url('../collegeIco/1hzu-1.png')"></div>
 				<div class="class-desc">
@@ -273,7 +273,7 @@
 				<span id="l-monitor">貂蝉</span>
 				</p>
 				</div>
-			</div>
+			</div> -->
 			<div id="" class="mod-student">
 				<h3 class="h33">个人信息</h3>
 				<ul id="c-info-content">

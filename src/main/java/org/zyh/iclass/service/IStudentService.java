@@ -11,6 +11,7 @@ public interface IStudentService {
 	public void deleteStudent(int id);
 	public void updateStudent(Student student);
 	public void joinClass(int id, int classId);
+	public void toClass(int id, int classId);
 	public Student loadStudent(int id);
 	public Student loadByUserId(int id);
 	public List<Student> listStudent();
@@ -23,4 +24,5 @@ public interface IStudentService {
 	public Pager<Student> findByString(String string,int curPage,int pageSize);
 	public Pager<Student> findByStringAndClassId(int classId,String string,int curPage,int pageSize);
 	public Pager<Student> findByStringAndCourseId(int courseId,String string,int curPage,int pageSize);
+	public Pager<Student> findToClass();
 }

@@ -109,7 +109,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public User load(int id) {
+	public User loadUser(int id) {
 		return userDao.load(id);
 	}
 
@@ -178,4 +178,27 @@ public class UserService implements IUserService {
 		//登录失败
 		return u;
 	}
+	@Override
+	public User loginBack(String username, String password) {
+		String pwd = "";
+		try {
+			 pwd = SecurityUtil.md5(password);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return userDao.loginBack(username, pwd);
+	}
+	@Override
+	public void updateUser(int id, int power, int status) {
+		try {
+			User u = userDao.load(id);
+			u.setPower(power);
+			u.setStatus(status);
+			userDao.update(u);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

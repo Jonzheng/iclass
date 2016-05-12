@@ -73,7 +73,7 @@ public class TestUser {
 		for(int i=22;i<2;i++) {
 			//userService.add(u);
 		}
-		User tu = userService.load(2);
+		User tu = userService.loadUser(2);
 		print(tu);
 	}
 	@Test

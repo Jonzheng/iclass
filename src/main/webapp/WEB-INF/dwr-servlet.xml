@@ -41,6 +41,7 @@
 		<dwr:convert type="bean" class="org.zyh.iclass.model.TeacherCourse"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.CallRoll"></dwr:convert>
 		<dwr:convert type="bean" class="org.zyh.iclass.model.CallTotal"></dwr:convert>
+		<dwr:convert type="bean" class="org.zyh.iclass.model.Course"></dwr:convert>
 	</dwr:configuration>
 	
 	<!-- Service公开给DWR的方法 -->
@@ -64,6 +65,7 @@
  			<dwr:include method="loadByEmail"/>
  			<dwr:include method="loadByUsername"/>
  			<dwr:include method="login"/>
+ 			<dwr:include method="loadUser"/>
  		</dwr:remote>
  	</bean>
  	<bean id="studentService" class="org.zyh.iclass.service.StudentService">
@@ -71,6 +73,7 @@
  			<dwr:include method="addStudent"/>
  			<dwr:include method="updateStudent"/>
  			<dwr:include method="joinClass"/>
+ 			<dwr:include method="toClass"/>
  			<dwr:include method="deleteStudent"/>
  			<dwr:include method="loadStudent"/>
  			<dwr:include method="loadByUserId"/>
@@ -79,6 +82,7 @@
  			<dwr:include method="findByString"/>
  			<dwr:include method="findByStringAndClassId"/>
  			<dwr:include method="findByStringAndCourseId"/>
+ 			<dwr:include method="findToClass"/>
  		</dwr:remote>
  	</bean>
  	<bean id="collegeService" class="org.zyh.iclass.service.CollegeService">
@@ -141,6 +145,14 @@
  			<dwr:include method="addCallTotal"/>
  			<dwr:include method="loadByCouraseId"/>
  			<dwr:include method="updateCallTotal"/>
+ 		</dwr:remote>
+ 	</bean>
+ 	<bean id="courseService" class="org.zyh.iclass.service.CourseService">
+ 		<dwr:remote javascript="courseService">
+ 			<dwr:include method="addCourse"/>
+ 			<dwr:include method="loadByTeacherId"/>
+ 			<dwr:include method="findCourse"/>
+ 			<dwr:include method="newCourse"/>
  		</dwr:remote>
  	</bean>
  	

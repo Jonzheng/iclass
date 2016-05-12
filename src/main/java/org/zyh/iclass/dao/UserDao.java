@@ -88,4 +88,10 @@ public class UserDao extends BaseDao<User> implements IUserDao {
 		return (User)queryObject(hql, new Object[]{user.getUsername(),user.getEmail()});
 	}
 
+	@Override
+	public User loginBack(String username, String password) {
+		String hql ="from User where username=? and password=? and power=?";
+		return (User)this.queryObject(hql, new Object[]{username,password,2});
+	}
+
 }

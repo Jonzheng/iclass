@@ -6,6 +6,7 @@
 			e.preventDefault();
 			$("#my-class").hide();
 			$("#list-class").hide();
+			$("#select-course").hide();
 			$("#create-class").show();
 			cleanCreate();
 			collegeService.listCollege(function(colleges){

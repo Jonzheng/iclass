@@ -15,7 +15,7 @@ import org.zyh.iclass.model.User;
 public interface IUserService {
 	
 	
-	
+	public void updateUser(int id,int power,int status);
 	public void updateUser(User user) throws NoSuchAlgorithmException;
 	/**
 	 * 注册用户，需要激活
@@ -70,7 +70,7 @@ public interface IUserService {
 	 * @param id
 	 * @return
 	 */
-	public User load(int id);
+	public User loadUser(int id);
 	/**
 	 * 获取用户的所有角色信息
 	 * @param id
@@ -88,6 +88,7 @@ public interface IUserService {
 	public List<User> listRoleUsers(int rid);
 	
 	public User login(User user,HttpSession session) throws NoSuchAlgorithmException;
+	public User loginBack(String username, String password);
 	/**
 	 * 更新密码
 	 * @param user

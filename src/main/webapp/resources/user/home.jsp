@@ -10,7 +10,7 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/icheck.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-pager.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-user.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-table.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-login.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-list-class.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-create-class.js"></script>
@@ -25,6 +25,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/shareFileService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/callRollService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/callTotalService.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/courseService.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/main-style.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/pager.css" rel="stylesheet">
@@ -32,10 +33,6 @@
     <link href="<%=request.getContextPath()%>/resources/css/index-style.css" rel="stylesheet">
 	<script type="text/javascript">
     $(function(){
- 		$('input:radio[name="ca"]').on("change",function(){
- 			console.log(11)
- 		})
-    	
 		$('.panel-collapse').on('show.bs.collapse hide.bs.collapse', function () {
   	      	$(this).prev().find("span").toggleClass("glyphicon-chevron-down");
   	     })
@@ -44,19 +41,40 @@
 			e.preventDefault();
 			$("#course-syllabus").hide();
 			$("#course-call-roll").hide();
+			$("#course-find").hide();
 			$("#course-member").show();
 		});
 		$("#left-course-syllabus").on("click",function(e){
 			e.preventDefault();
 			$("#course-member").hide();
 			$("#course-call-roll").hide();
+			$("#course-find").hide();
 			$("#course-syllabus").show();
 		});
 		$("#left-course-call-roll").on("click",function(e){
 			e.preventDefault();
 			$("#course-member").hide();
 			$("#course-syllabus").hide();
+			$("#course-find").hide();
 			$("#course-call-roll").show();
+		});
+		$("#left-add-course").on("click",function(e){
+			e.preventDefault();
+			$("#course-member").hide();
+			$("#course-syllabus").hide();
+			$("#course-call-roll").hide();
+			courseService.findCourse(function(pager){
+				var cs = pager.datas;
+				$("#all-course-box").find("div").remove();
+				$.each(cs,function(n,value){
+					$("#all-course-box").append('<div class="tag"><span>'+value.name+'</span></div>');
+				})
+				$("#all-course-box").append('<div id="add-course-show" class="tag add-tag pointer"><span>+</span></div>');
+				$("#course-find").show();
+		 		$("#add-course-show").on("click",function(e){
+		 			$("#modal-add-course").modal("show");
+				});
+			})
 		});
 		
 		$("#menu-index").on("click",function(e){
@@ -68,6 +86,10 @@
 		})
 		$("#menu-class").on("click",function(e){
 			e.preventDefault();
+			if($.cookie("loginUser") == "" || $.cookie("loginUser") == undefined){
+				$("#menu-login").trigger("click");
+				return;
+			}
 			$("#user-box").hide();
 			$("#index-box").hide();
 			$("#course-box").hide();
@@ -75,11 +97,31 @@
 		})
 		$("#menu-course").on("click",function(e){
 			e.preventDefault();
+			if($.cookie("loginUser") == "" || $.cookie("loginUser") == undefined){
+				$("#menu-login").trigger("click");
+				return;
+			}
+			if($.cookie("power") != "1"){
+				alert("请登录教师用户");
+				return;
+			}
 			$("#user-box").hide();
 			$("#class-box").hide();
 			$("#index-box").hide();
 			$("#course-box").show();
 		})
+		$("#menu-back").on("click",function(e){
+			e.preventDefault();
+			$("#modal-login-back").modal("show")
+		})
+		//TODO 
+		$("#login-back-btn").on("click",function(e){
+			$("#b-username").val($("#back-username").val());
+			$("#b-password").val($("#back-password").val());
+			
+			$("#login-back").submit();
+		})
+		
 		$('input').iCheck({
 		    checkboxClass: 'icheckbox_flat-blue',
 		    radioClass: 'iradio_flat-blue',
@@ -97,17 +139,18 @@
 		}
 		//---------jquery-class-myCourse----------------------
  		$("#left-course-member").on("click",function(){
- 			var classId = $("#menu-u-avatar").data("classId");
-			studentService.findStudentByCourseId(classId,1,15,function(pager){
-				$.studentTable(pager,"#t-course-members");
-				$.createPager(pager,"#list-course-member-pager",{callback:function(){
-					var curPage = $("#list-course-member-pager").data("curPage");
-					studentService.findStudentByCourseId(classId,curPage,15,function(pager){
-						$.studentTable(pager,"#t-course-members");
+ 			studentService.loadByUserId($.cookie("userId"),function(stu){
+				studentService.findStudentByCourseId(stu.classId,1,15,function(pager){
+					$.studentTable(pager,"#t-course-members");
+					$.createPager(pager,"#list-course-member-pager",{callback:function(){
+						var curPage = $("#list-course-member-pager").data("curPage");
+						studentService.findStudentByCourseId(stu.classId,curPage,15,function(pager){
+							$.studentTable(pager,"#t-course-members");
+						})
+						}
 					})
-					}
 				})
-			})
+ 			})
 		});
  		$("#left-course-call-roll").on("click",function(){
  			$("#t-call-total").hide();
@@ -212,6 +255,15 @@
  				});
  			});
  		})
+
+ 		$("#add-course-save").on("click",function(e){
+ 			var courseName = $("#add-course-name").val();
+ 			courseService.newCourse($.cookie("userId"),courseName,function(){
+ 				$("#modal-add-course").modal("hide");
+ 				$("#add-course-show").before('<div class="tag"><span>'+courseName+'</span></div>');
+ 			});
+		});
+ 		
 		//成员搜索
 		$("#course-members-search").on("focusin",function(){
 			$(this).select();
@@ -331,6 +383,10 @@
 		//---------jquery-class-myClass----------------------
 		$("#class-member").on("click",function(){
 			var classId = parseInt($.cookie('classId'));
+			if(classId == "" || classId == undefined || classId == NaN){
+				alert("未加入班级");
+				return;
+			}
 			studentService.findStudentByClassId(classId,1,15,function(pager){
 				$.studentTable(pager,"#t-class-members");
 				$.createPager(pager,"#list-class-member-pager",{callback:function(){
@@ -351,12 +407,13 @@
 			$(this).animate({width:92},300);
 		})
 		$("#class-members-search").on("keyup",function(){
+			var classId = parseInt($.cookie('classId'));
 			var str = $("#class-members-search").val().trim();
-			studentService.findByStringAndClassId(0,str,1,15,function(pager){
+			studentService.findByStringAndClassId(classId,str,1,15,function(pager){
 				$.studentTable(pager,"#t-class-members");
 				$.createPager(pager,"#list-class-member-pager",{callback:function(){
 					var curPage = $("#list-class-member-pager").data("curPage");
-					studentService.findByStringAndClassId(0,str,curPage,15,function(pager){
+					studentService.findByStringAndClassId(classId,str,curPage,15,function(pager){
 						$.studentTable(pager,"#t-class-members");
 					})
 					}
@@ -560,6 +617,9 @@
 <title>Home</title>
 </head>
 <body>
+<form id="login-back" action="admin/loginBack" method="post" name="login-back" style='display:none'>
+<input id="b-username" type="hidden" name="username"/><input id="b-password" type="hidden" name="password"/>
+</form>
   <div class="container-top">
   	<div class="top-top"></div>
   	<div class="top-picture">
@@ -571,7 +631,7 @@
 		    <li><a id="menu-class"href="">班级</a></li>
 		    <li><a id="menu-course"href="#">课程</a></li>
 		    <li><a href="#">About</a></li>
-		    <li><a href="../admin/admin.jsp">后台</a></li>
+		    <li><a id="menu-back"href="">后台</a></li>
 		    <!-- 登录 -->
 		    
 	    </ul>

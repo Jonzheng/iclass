@@ -20,4 +20,5 @@ public interface IStudentDao {
 	public Pager<Student> findByString(String string);
 	public Pager<Student> findByStringAndClassId(int classId,String string);
 	public Pager<Student> findByStringAndCourseId(int courseId,String string);
+	public Pager<Student> findToClass();
 }

@@ -172,7 +172,7 @@ public class Upload {
 			
 			OutputStream out = new FileOutputStream(path);
 			List<Student> stus = new ArrayList<>();
-			stus = stuService.listByClassId(0);
+			stus = stuService.listByClassId(2);
 			ExportExcelUtil.exportExcel(title, stus, out);
 			
 			File file = new File(path);
@@ -310,7 +310,7 @@ public class Upload {
 	@RequestMapping("/uploadAvatar")
 	public void uploadAvatar(MultipartFile Filedata,HttpServletRequest request) throws IOException, NoSuchAlgorithmException {
 		int uid = Integer.parseInt(request.getParameter("uid"));
-		User u = userService.load(uid);
+		User u = userService.loadUser(uid);
 		String oa = u.getTempAvatar();
 		String soa = "s"+u.getTempAvatar();
 		String realPath = SystemContext.getRealPath();

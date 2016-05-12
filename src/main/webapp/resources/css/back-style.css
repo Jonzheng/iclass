@@ -48,6 +48,20 @@ li a {
 	font-weight:bold;
 	color: white;
 }
+
+table > thead {
+  background: #39adb4 none repeat scroll 0 0;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  height: 36px;
+  text-align: center;
+}
+
+table > tbody {
+  text-align: center;
+}
+
 .container-top {
 	margin-left: auto;
     margin-right: auto;
@@ -263,6 +277,7 @@ td.c-target,td.d-target,td.m-target {
 	color: #337ab7;
 	font-weight:bold;
 }
+
 .college-ico {
 	display:none;
  	background-repeat:no-repeat;
@@ -281,6 +296,24 @@ td.c-target,td.d-target,td.m-target {
 	border:1px solid #eee;
 }
 
+.n-input {
+	width:200px;
+	background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.n-input:focus {
+    border-color: #66afe9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
 
 
 

@@ -86,4 +86,10 @@ public class StudentDao extends BaseDao<Student>implements IStudentDao {
 		return this.list(hql,courseId);
 	}
 
+	@Override
+	public Pager<Student> findToClass() {
+		String hql = "from Student where toClass<>0";
+		return this.find(hql);
+	}
+
 }

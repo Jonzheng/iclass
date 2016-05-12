@@ -8,12 +8,13 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/uploadify/jquery.uploadify.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-pager.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-user.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-table.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-cdm.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-validate.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/dwr/engine.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/userService.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/collegeService.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/studentService.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/uploadify/uploadify.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/back-style.css" rel="stylesheet">
@@ -115,7 +116,61 @@
 	    		}
   	    	}
   	     })
-
+  	     
+  	     //TODO  ---------------
+ 		$("#findToClass").on("click",function(e){
+			e.preventDefault();
+			$("#codm-box").hide();
+			$("#b-user-box").hide();
+			studentService.findToClass(function(pager){
+					$("#findToClass-box").show();
+					$.toClassTable(pager,"#t-findToClass");
+					$.createPager(pager,"#p-findToClass",{callback:function(){}
+				})
+			})
+		});
+  	     
+  		$("#left-user").on("click",function(e){
+			e.preventDefault();
+			$("#codm-box").hide();
+			$("#findToClass-box").hide();
+			userService.findUser(1,15,function(pager){
+					$("#b-user-box").show();
+					$.userTable(pager,"#t-all-user");
+					$.createPager(pager,"#p-all-user",{callback:function(){}
+				})
+			})
+		});
+  	    joinClass = function(stuId,classId){
+  	    	var stuId = parseInt(stuId);
+  	    	var classId = parseInt(classId);
+			studentService.joinClass(stuId,classId,function(){
+				alert("已通过");
+				$("#t-findToClass").find("tbody tr").find('td[id='+stuId+']').closest("tr").remove();
+			})
+  	     }
+  	    refuseClass = function(stuId){
+  	    	console.log(stuId);
+  	    }
+  	    
+  	    updateUser = function(uId){
+  	    	userService.loadUser(uId,function(u){
+  	    		$("#modal-u-update").modal("show");
+  	    		$("#update-u-power").data("uId",uId);
+  	    		$("#update-u-power").val(u.power);
+  	    		$("#update-u-status").val(u.status);
+  	    	})
+  	    }
+  	    
+  	    $("#u-update-save").on("click",function(){
+  	    	var uId = $("#update-u-power").data("uId");
+  	    	var power = $("#update-u-power").val();
+  	    	var status = $("#update-u-status").val();
+  	    	userService.updateUser(uId,power,status,function(){
+  	    		$("#left-user").trigger("click");
+  	    		$("#modal-u-update").modal("hide");
+  	    	})
+  	    })
 		});
 	</script>
 <title>Back</title>
@@ -197,7 +252,7 @@
   	<div class="top2">
   	<div class="container">
 		<ul class="nav nav-pills">
-		  <li class="active"><a href="../user/home.jsp">Home</a></li>
+		  <li class="active"><a href="/iclass/resources/user/home.jsp">Home</a></li>
 		  <li><a href="#">Profile</a></li>
 		  <li class="pull-right"><a href="#">Messages</a></li>
 		</ul>
@@ -209,22 +264,20 @@
 			<div class="item-group">
 			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseCourse" class="items">用户<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 	              <div id="collapseCourse" class="panel-collapse collapse">
-	        			<a id="left-user" href="#" class="items item">管理员</a>
+	        			<a id="left-user" href="#" class="items item">用户</a>
 	        			<a id="left-student" href="#" class="items item">学生</a>
 	        			<a id="left-teacher" href="#" class="items item">教师</a>
 	  			  </div>
 			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="items">申请管理 <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 			  	  <div id="collapseTwo" class="panel-collapse collapse">
-	        			<a id='left-cdm' href="#" class="items item">学校-系-专业</a>
-	        			<a href="#" class="items item">班级申请</a>
+	        			<a id='left-cdm' href="" class="items item">学校-系-专业</a>
+	        			<a id="findToClass" href="" class="items item">班级申请</a>
 	        			<a href="#" class="items item">课程申请</a>
 	  			  </div>
 			  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="items">首页管理<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 			  	  <div id="collapseThree" class="panel-collapse collapse">
-	        			<a href="#" class="items item">apple</a>
-	        			<a href="#" class="items item">boy</a>
-	        			<a href="#" class="items item">cat</a>
-	        			<a href="#" class="items item">dead</a>
+	        			<a href="#" class="items item">图片管理</a>
+	        			<a href="#" class="items item">消息管理</a>
 	  			  </div>
 			</div>
 		</div>
@@ -251,21 +304,79 @@
 			</div>
 			
 			<div class="body-content">
-<!-- user用户管理 -->
-	 			<table id='listUser' class="table table-bordered table-hover table-condensed" style="display:none">
+<!-- 用户管理 -->
+			<div id="b-user-box" style="display:none">
+				<div class="modal fade" id="modal-u-update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title">新增课程</h4>
+				      </div>
+				      <div id="rule-box"class="modal-body">
+						<div class="input-container">
+							<label id="">用户类型：</label>
+							<input id="update-u-power" type="text" class="n-input input-sm" placeholder="0:学生,1:教师,2:管理员">
+						</div>
+						<div class="input-container">
+							<label id="">用户状态：</label>
+							<input id="update-u-status" type="text" class="n-input input-sm" placeholder="0：停用，1启用">
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				        <button id ='u-update-save' type="button" class="btn btn-primary">保存</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+			
+			<div id="" class="cdm-title"><span>用户管理</span></div>
+	 			<table id='t-all-user' class="table table-bordered table-hover table-condensed">
 		              <thead>
+		              <tr><td>NO.</td><td>邮箱</td><td>用户名</td><td>长号</td><td>类型</td><td>状态</td><td>操作</td></tr>
 		              </thead>
 		              <tbody>
 		              </tbody>
 		              <tfoot>
-		              <tr><td colspan="7">
-				        <ul class="page">
-						</ul>
-		              </td></tr>
+		              <tr><td colspan="7"><ul id="p-all-user" class="page"></ul></td></tr>
 		              </tfoot>
 				</table>
-				
-<!-- 学校-系-专业-表格 -->	
+			</div>
+<!-- 学生管理 -->
+			<div id="b-stu-box" style="display:none">
+			<div id="" class="cdm-title"><span>学生管理</span></div>
+	 			<table id='t-all-stu' class="table table-bordered table-hover table-condensed">
+		              <thead>
+		              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>长号</td><td>短号</td><td>QQ</td><td>宿舍</td></tr>
+		              </thead>
+		              <tbody>
+		              </tbody>
+		              <tfoot>
+						<tr><td colspan="7"><ul id="p-all-stu" class="page"></ul></td></tr>
+		              </tfoot>
+				</table>
+			</div>
+<!-- 班级申请 -->
+			<div id="findToClass-box" style="display:none">
+			<div id="cdm-title" class="cdm-title"><span>班级申请</span></div>
+			<table id='t-findToClass' class="table table-bordered table-hover table-condensed">
+	              <thead>
+	              <tr><td>NO.</td><td>学号</td><td>姓名</td><td>长号</td><td>申请班级</td><td>操作</td></tr>
+	              </thead>
+	              <tbody>
+	              </tbody>
+	              <tfoot>
+	              <tr><td colspan="7">
+	               <div class='class-member-pager-container'>
+	                 <ul id="p-findToClass" class="page"></ul>
+                   </div>
+                   </td></tr>
+	              </tfoot>
+			</table>
+			</div>
+<!-- 学校-系-专业-表格 -->
+			<div id="codm-box" style="display:none">
 				<div class="modal fade" id="cdm-show-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
@@ -283,16 +394,14 @@
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 
-			<div id="cdm-title" class="cdm-title" style="display:none">
-				<span>学校-系-专业</span>
-			</div>
+			<div id="cdm-title" class="cdm-title"><span>学校-系-专业</span></div>
 				<!-- Nav tabs -->
-				<ul id="cdm-nav" class="nav nav-tabs" style="display:none">
+				<ul id="cdm-nav" class="nav nav-tabs">
 				  <li><a id="menu-ap" href="#cdm-apply" data-toggle="tab">申请</a></li>
 				  <li><a id="menu-li" href="#cdm-list" data-toggle="tab">所有</a></li>
 				</ul>
 				<!-- Tab panes -->
-				  <div id="tab-content" class="tab-content" style="display:none">
+				  <div id="tab-content" class="tab-content">
 					  <div class="tab-pane active" id="cdm-apply">
 						  <table id="t-apply-cdm" class="table table-bordered table-condensed">
 				              <thead>
@@ -332,7 +441,7 @@
 						</table>
 					  </div>
 				  </div>
-				
+				</div>
 			</div><!-- body-content   end -->
 		</div> <!-- container-right  end -->
 	</div>

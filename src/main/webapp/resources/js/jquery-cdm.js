@@ -141,13 +141,11 @@
 	}
 	
 	initCdm = function(e){
-		
   		$("#left-cdm").on("click",function(e){
 			e.preventDefault();
-			//------------
-			$("#cdm-title").show(100);
-			$("#cdm-nav").show(100);
-			$("#tab-content").show(100);
+			$("#findToClass-box").hide();
+			$("#b-user-box").hide();
+			$("#codm-box").show();
 			$("#menu-ap").trigger("click");
 		})
 		
